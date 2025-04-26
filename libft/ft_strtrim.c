@@ -1,45 +1,75 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/26 13:24:50 by ttanaka           #+#    #+#             */
+/*   Updated: 2025/04/26 17:52:40 by ttanaka          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-static int *init_seen(int *seen, char const *set)
+static int	*init_seen(int *seen, char const *set)
 {
-    size_t i;
-    i = 0;
-    while (i < 256)
-        seen[i++] = 0;
-    i = 0;
-    while (set[i])
-        seen[(unsigned char)set[i++]] = 1;
-    return (seen);
+	size_t	i;
+
+	i = 0;
+	while (i < 256)
+		seen[i++] = 0;
+	i = 0;
+	while (set[i])
+		seen[(unsigned char)set[i++]] = 1;
+	return (seen);
 }
 
-char *ft_strtrim(char const *s1, char const *set)
+static size_t	ft_count_rmv_chr(char const *s1, int *seen)
 {
-    int seen[256];
-    size_t i;
-    size_t j;
-    size_t len;
-    char *newstr;
+	size_t	cnt;
+	size_t	i;
 
-    init_seen(seen, set);
-    i = 0;
-    j = 0;
-    len = 0;
-    while (s1[i])
-        if (seen[(unsigned char)s1[i++]])
-            j += 1;
-    len = i - j;
-    newstr = malloc(len + 1);
-    if (!newstr)
-        return (NULL);
-    newstr[len] = '\0';
-    i = 0;
-    j = 0;
-    while (i < len)
-    {
-        while (seen[(unsigned char)s1[i + j]])
-            j++;
-        newstr[i] = s1[i + j];
-        i++;
-    }
-    return (newstr);
+	i = 0;
+	cnt = 0;
+	while (s1[i])
+		if (seen[(unsigned char)s1[i++]])
+			cnt++;
+	return (cnt);
 }
+
+char	*ft_strtrim(char const *s1, char const *set)
+{
+	int		seen[256];
+	size_t	i;
+	size_t	j;
+	size_t	len;
+	char	*newstr;
+
+	init_seen(seen, set);
+	i = ft_strlen(s1);
+	j = ft_count_rmv_chr(s1, seen);
+	len = i - j;
+	newstr = malloc(len + 1);
+	if (!newstr)
+		return (NULL);
+	newstr[len] = '\0';
+	i = 0;
+	j = 0;
+	while (i < len)
+	{
+		while (seen[(unsigned char)s1[i + j]])
+			j++;
+		newstr[i] = s1[i + j];
+		i++;
+	}
+	return (newstr);
+}
+
+// // complie with ft_strlen
+// int main()
+// {
+// 	char s1[] = "aaaabaa42tokyoaaaaa42ataobbbakayaoaaaaaaaaaaaaaaaaaaaa";
+// 	char set[] = "aaabbbbbb";
+// 	printf("%s\n", ft_strtrim(s1, set));
+// }
