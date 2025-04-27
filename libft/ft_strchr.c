@@ -3,20 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttanaka <ttanaka@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 13:24:18 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/04/26 13:24:19 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/04/27 17:06:30 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+//find c in s
 char	*ft_strchr(const char *s, int c)
 {
 	char	*p;
 	char	c_cpy;
 
+	if (!s)
+		return (NULL);
 	p = (char *)s;
 	c_cpy = (char)c;
 	while (*p && *p != c_cpy)
@@ -26,9 +29,9 @@ char	*ft_strchr(const char *s, int c)
 	return (p);
 }
 
-// #include <stdio.h>
 // int main()
 // {
 //     char s[] = "Hello World";
-//     printf("%s",ft_strchr(s, 'H' + 256));
+// 	printf("%s\n", ft_strchr(NULL, '\0'));
+//     printf("%s\n",ft_strchr(s, 'H' + 256));
 // }

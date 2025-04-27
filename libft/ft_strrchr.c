@@ -6,7 +6,7 @@
 /*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 13:24:47 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/04/26 20:33:38 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/04/27 17:07:01 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*ft_strrchr(const char *s, int c)
 	char	*res;
 	char	c_cpy;
 
+	if (!s)
+		return (NULL);
 	res = NULL;
 	c_cpy = (char)c;
 	while (*s)

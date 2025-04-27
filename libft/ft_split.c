@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttanaka <ttanaka@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 13:24:15 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/04/26 14:05:12 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/04/27 18:58:29 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,29 @@ char	**ft_split(char const *s, char c)
 	return (words);
 }
 
-// #include <stdio.h>
 // int main()
 // {
+// 	char ***tests = (char ***)malloc(sizeof(char **) * 9);
 //     char **words = ft_split("aaaaaaa", 'a');
-//     printf("%s", words[0]);
+//     printf("%s\n", words[0]);
+// 	tests[0] = ft_split("Hello World", ' ');
+// 	tests[1] = ft_split("Hello                             World", ' ');
+// 	tests[2] = ft_split("       Leading and trailing spaces       ", ' ');
+// 	tests[3] = ft_split("            ", ' ');
+// 	tests[4] = ft_split("JustOneWord", ' ');
+// 	tests[5] = ft_split("", ' ');
+// 	tests[6] = ft_split(NULL, ' ');
+// 	tests[7] = ft_split("Split\0by\0null", '\0');
+// 	int j;
+// 	for (int i = 0; i < 8; i++)
+// 	{
+// 		printf("-test%d-\n", i);
+// 		j = 0;
+// 		while(tests[i][j])
+// 		{
+// 			printf("%d: %s\n", j + 1, tests[i][j]);
+// 			j++;
+// 		}
+// 		printf("\n");
+// 	}
 // }

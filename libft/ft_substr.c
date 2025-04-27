@@ -6,7 +6,7 @@
 /*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 13:24:54 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/04/26 20:33:35 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/04/27 17:40:03 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	char	*subs;
 	size_t	sub_len;
 
+	if (!s)
+		return (NULL);
 	sub_len = 0;
 	if (start < ft_strlen(s))
 		sub_len = ft_min(ft_strlen(s) - start, len);

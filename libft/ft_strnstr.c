@@ -6,7 +6,7 @@
 /*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 13:24:45 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/04/26 20:34:17 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/04/27 19:02:10 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 	size_t	j;
 
 	i = 0;
+	if (!haystack)
+		return (NULL);
 	if (!(*needle))
 		return ((char *)(haystack));
 	while (i < len && haystack[i])
@@ -25,9 +27,10 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 		if (haystack[i] == needle[0])
 		{
 			j = 0;
-			while (haystack[i + j] && needle[j] && haystack[i + j] == needle[j])
+			while (i + j < len && haystack[i + j]
+				&& needle[j] && haystack[i + j] == needle[j])
 				j++;
-			if (!needle[j] && i + j <= len)
+			if (!needle[j])
 				return ((char *)(&haystack[i]));
 		}
 		i++;
@@ -37,7 +40,12 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 
 // int main()
 // {
+// 	if (ft_strnstr(NULL, NULL, 100))
+// 	{
+// 		printf("Error\n");
+// 		return (1);
+// 	}
 // 	char haystack[] = "qwertyui42tokopasdfghjkl42tokyowertyuiasdfgh";
 // 	char needle[] = "42tokyo";
-// 	printf("%s", ft_strnstr(haystack, needle, strlen(haystack)-40));	
+// 	printf("%s\n", ft_strnstr(haystack, needle, 100));
 // }

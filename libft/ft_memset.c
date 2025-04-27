@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttanaka <ttanaka@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 13:23:58 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/04/26 13:23:59 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/04/27 15:41:49 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	*ft_memset(void *s, int c, size_t n)
 	size_t	rest;
 	char	*cur;
 
+	if (!s)
+		return (NULL);
 	rest = n;
 	cur = (char *)s;
 	while (rest)
@@ -30,6 +32,8 @@ void	*ft_memset(void *s, int c, size_t n)
 // #include <stdio.h>
 // int main()
 // {
+// 	if (ft_memset(NULL, '\0', 100))
+// 		printf("Error\n");
 //     char buf1[16];
 //     ft_memset(buf1, '\0', 16);
 //     ft_memset(buf1, 'a', 4);

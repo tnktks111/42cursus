@@ -6,7 +6,7 @@
 /*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 13:23:34 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/04/26 16:52:48 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/04/27 18:56:31 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,14 @@
 
 int	ft_isascii(int c)
 {
-	if (c >= 0 && c <= 127)
-		return (1);
-	else
-		return (0);
+	return ((unsigned char)c >= 0 && (unsigned char)c <= 127);
 }
-
-// #include <ctype.h>
-// #include <stdio.h>
 
 // int main()
 // {
-//     char c = '\t';
-//     printf("%d\n", isascii(c));
-//     printf("%d\n", ft_isascii(c));
+// 	for (int i = 0; i < 255; i++)
+// 	{
+// 		if (!(isascii(i)) != !(ft_isascii(i)))
+// 			printf("Fail at %d", i);
+// 	}
 // }

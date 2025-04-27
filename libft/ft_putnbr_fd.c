@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttanaka <ttanaka@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 13:24:08 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/04/26 13:24:09 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/04/27 15:49:41 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,5 @@ void	ft_putnbr_fd(int n, int fd)
 // int main()
 // {
 //     int n = -12345;
-//     ft_putnbr_fd(n, 0);
+//     ft_putnbr_fd(n, 1);
 // }

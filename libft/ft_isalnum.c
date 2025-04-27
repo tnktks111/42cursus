@@ -6,7 +6,7 @@
 /*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 13:23:29 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/04/26 16:52:38 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/04/27 14:58:55 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,15 @@
 
 int	ft_isalnum(int c)
 {
-	if (ft_isalpha(c) || ft_isdigit(c))
-		return (1);
-	else
-		return (0);
+	return ((ft_isalpha(c) || ft_isdigit(c)));
 }
 
-// #include <ctype.h>
-// #include <stdio.h>
-
+// // compile with ft_isalpha.c and ft_isalnum.c
 // int main()
 // {
-//     char c = 's';
-//     printf("%d\n", isalnum(c));
-//     printf("%d\n", ft_isalnum(c));
+// 	for (int i = 0; i < 255; i++)
+// 	{
+// 		if (!(isalnum(i)) != !(ft_isalnum(i)))
+// 			printf("Fail at %d", i);
+// 	}
 // }

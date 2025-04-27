@@ -6,7 +6,7 @@
 /*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 13:23:09 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/04/26 23:37:35 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/04/27 18:50:46 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,24 @@ static int	ft_isspace(int c)
 		return (0);
 }
 
-static int is_overflow(int sign, unsigned long num, unsigned long x)
+static int	is_overflow(int sign, unsigned long num, unsigned long x)
 {
-	unsigned long cutoff;
+	unsigned long	cutoff;
 
 	if (sign > 0)
 		cutoff = LONG_MAX;
 	else
 		cutoff = (unsigned long)LONG_MAX + 1;
-
 	return (cutoff / 10 < num || cutoff - num * 10 < x);
 }
+
 int	ft_atoi(const char *str)
 {
 	unsigned long	num;
 	int				sign;
 
+	if (!str)
+		return (0);
 	num = 0;
 	sign = 1;
 	while (*str && ft_isspace(*str))

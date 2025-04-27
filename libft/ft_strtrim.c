@@ -6,16 +6,18 @@
 /*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 13:24:50 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/04/26 20:33:36 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/04/27 17:39:38 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	*init_seen(int *seen, char const *set)
+static int	*init_seen(char const *s1, int *seen, char const *set)
 {
 	size_t	i;
 
+	if (!s1 || !set)
+		return (NULL);
 	i = 0;
 	while (i < 256)
 		seen[i++] = 0;
@@ -46,7 +48,8 @@ char	*ft_strtrim(char const *s1, char const *set)
 	size_t	len;
 	char	*newstr;
 
-	init_seen(seen, set);
+	if (!(init_seen(s1, seen, set)))
+		return (NULL);
 	i = ft_strlen(s1);
 	j = ft_count_rmv_chr(s1, seen);
 	len = i - j;

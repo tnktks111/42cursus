@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttanaka <ttanaka@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 13:23:40 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/04/26 13:23:41 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/04/27 15:02:19 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,14 @@
 
 int	ft_isprint(int c)
 {
-	if (c >= 32 && c <= 126)
-		return (1);
-	else
-		return (0);
+	return ((unsigned char)c >= 32 && (unsigned char)c <= 126);
 }
 
-// #include <ctype.h>
-// #include <stdio.h>
 // int main()
 // {
-//     char c = '@';
-//     printf("%d\n", isprint(c));
-//     printf("%d\n", ft_isprint(c));
+// 	for (int i = 0; i < 255; i++)
+// 	{
+// 		if (!(isprint(i)) != !(ft_isprint(i)))
+// 			printf("Fail at %d", i);
+// 	}
 // }

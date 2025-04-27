@@ -6,17 +6,19 @@
 /*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 13:23:22 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/04/26 21:54:17 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/04/27 21:14:18 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <strings.h>
+#include "libft.h"
 
 void	ft_bzero(void *s, size_t n)
 {
-	char	*c;
+	unsigned char	*c;
 
-	c = (char *)s;
+	if (!s)
+		return ;
+	c = (unsigned char *)s;
 	while (n)
 	{
 		*c++ = '\0';
@@ -24,35 +26,31 @@ void	ft_bzero(void *s, size_t n)
 	}
 }
 
-#include <stdio.h>
-#include <string.h>     // strcpy, strcmp, strlen
-#include "libft.h"      // ft_strlcat, ft_strlen (仮定)
-
-int main() {
-	
-    char dest[20];
-    strcpy(dest, "abc");
-    printf("%zu\n", ft_strlcat(dest, "def", sizeof(dest)));
-    printf("%s\n", dest);
-
-    strcpy(dest, "abc");
-	printf("%zu\n", ft_strlcat(dest, "defgh", 8));
-    printf("%s\n", dest);
-	
-    dest[0] = '\0';
-	printf("%zu\n", ft_strlcat(dest, "xyz", 20));
-    printf("%s\n", dest);
-	
-    strcpy(dest, "abc"); // strlen=3
-	printf("%zu\n", ft_strlcat(dest, "", 20));
-    printf("%s\n", dest);
-
-    dest[0] = '\0'; 
-	printf("%zu\n", ft_strlcat(dest, "abc", 1));
-    printf("%s\n", dest);
-
-    dest[0] = '\0'; // strlen=0
-	printf("%zu\n", ft_strlcat(dest, "abc", 0));
-    printf("%s\n", dest);
-
-}
+// int main()
+// {
+// 	char tab[100];
+// 	memset(tab, 'A', 100);
+// 	ft_bzero(tab, 0);
+// 	if (tab[0] != 'A')
+// 	{
+// 		printf("Error_1\n");
+// 		return(1);
+// 	}
+// 	ft_bzero(tab, 42);
+// 	for (int i = 0; i < 42; i++)
+// 	{
+// 		if (tab[i] == 'A')
+// 		{
+// 			printf("Error_2\n");
+// 			return (1);
+// 		}
+// 	}
+// 	if (tab[42] != 'A')
+// 	{
+// 		printf("Error_3\n");
+// 		return (1);
+// 	}
+// 	ft_bzero(NULL, 42);
+// 	printf("Success\n");
+// 	return (0);
+// }

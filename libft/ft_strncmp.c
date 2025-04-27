@@ -6,7 +6,7 @@
 /*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 13:24:42 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/04/26 20:34:10 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/04/27 17:21:24 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,5 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 // {
 // 	char s1[] = "42tokyo";
 // 	char s2[] = "42paris";
-// 	printf("%d", ft_strncmp(s1, s2, 2));
+// 	printf("%d\n", ft_strncmp(s1, s2, 2));
 // }
