@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttanaka <ttanaka@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 13:24:29 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/04/26 14:17:42 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/04/26 22:02:45 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,3 +38,50 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 	else
 		return (i + j);
 }
+
+// int main() {
+
+//     char dest[20];
+
+//     strcpy(dest, "abc");
+//     printf("%zu\n", ft_strlcat(dest, "def", sizeof(dest)));
+//     printf("%s\n", dest);
+
+//     strcpy(dest, "abc");
+//     printf("%zu\n", ft_strlcat(dest, "defgh", 8));
+//     printf("%s\n", dest);
+
+//     dest[0] = '\0';
+//     printf("%zu\n", ft_strlcat(dest, "xyz", 20));
+//     printf("%s\n", dest);
+
+//     strcpy(dest, "abc");
+//     printf("%zu\n", ft_strlcat(dest, "", 20));
+//     printf("%s\n", dest);
+
+//     dest[0] = '\0';
+//     printf("%zu\n", ft_strlcat(dest, "abc", 1));
+//     printf("%s\n", dest);
+
+//     dest[0] = '\0';
+//     printf("%zu\n", ft_strlcat(dest, "abc", 0));
+//     printf("%s\n", dest);
+
+//     strcpy(dest, "abcdef");
+//     printf("%zu\n", ft_strlcat(dest, "ghi", 6));
+//     printf("%s\n", dest);
+
+//     strcpy(dest, "abc");
+//     printf("%zu\n", ft_strlcat(dest, "de", 6));
+//     printf("%s\n", dest);
+
+//     strcpy(dest, "abcd");
+//     printf("%zu\n", ft_strlcat(dest, "efg", 6));
+//     printf("%s\n", dest);
+
+//     strcpy(dest, "abcde");
+//     printf("%zu\n", ft_strlcat(dest, "f", 6));
+//     printf("%s\n", dest);
+
+//     return 0;
+// }

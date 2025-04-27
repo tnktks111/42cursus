@@ -6,13 +6,14 @@
 /*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 14:15:02 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/04/26 17:39:19 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/04/26 23:31:41 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <limits.h>
 #include <stdio.h> 
 #include <ctype.h>
 #include <stdint.h>

@@ -6,7 +6,7 @@
 /*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 13:24:37 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/04/26 17:58:49 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/04/26 20:33:54 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	size_t	len;
 	char	*res;
 
+	if (!s || !f)
+		return (NULL);
 	i = 0;
 	len = ft_strlen(s);
 	res = malloc(len + 1);
@@ -32,12 +34,13 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	return (res);
 }
 
-int main()
-{
-	char plus_idx(unsigned int i, char s)
-	{
-		s[i] += i;
-	}
-	
-	ft_strmapi(,plus_idx)
-}
+// char plus_idx(unsigned int i, char c)
+// {
+// 	return (c + i);
+// }
+// int main()
+// {
+// 	char s[] = "01234";
+
+// 	printf("%s\n",ft_strmapi(s,plus_idx));
+// }
