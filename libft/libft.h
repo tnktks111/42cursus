@@ -6,7 +6,7 @@
 /*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 14:15:02 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/04/27 19:04:29 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/04/28 09:28:34 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 #include <string.h>
 #include <unistd.h>
 #include <limits.h>
-// #include <stdio.h> 
-// #include <ctype.h>
-// #include <stdint.h>
+#include <stdio.h> 
+#include <ctype.h>
+#include <stdint.h>
 
 typedef struct s_list
 {
