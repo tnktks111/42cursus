@@ -6,9 +6,12 @@
 /*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 14:15:02 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/04/28 09:28:34 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/04/29 10:33:38 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef LIBFT_H_
+#define LIBFT_H_
 
 #include <stdlib.h>
 #include <string.h>
@@ -70,3 +73,4 @@ void				ft_lstclear(t_list **lst, void (*del)(void *));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
+#endif
