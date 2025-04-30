@@ -6,11 +6,11 @@
 /*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 14:15:02 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/04/29 10:33:38 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/04/30 00:07:05 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H_
+# ifndef LIBFT_H_
 #define LIBFT_H_
 
 #include <stdlib.h>

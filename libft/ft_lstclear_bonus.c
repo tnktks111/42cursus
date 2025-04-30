@@ -6,7 +6,7 @@
 /*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 16:11:56 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/04/27 18:08:44 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/04/30 16:37:30 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 	cur = *lst;
 	while (cur)
 	{
-		tmp = cur->next;
-		del(cur->content);
-		free(cur);
-		cur = tmp;
+		tmp = cur;
+		cur = cur->next;
+		del(tmp->content);
+		free(tmp);
 	}
 	*lst = NULL;
 }
