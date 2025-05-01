@@ -52,7 +52,7 @@ int ft_getc_fd(int fd)
     {
         cur->nxt = create_t_buf_list_node(fd);
         if (!(cur->nxt))
-            return 
+            return ( );
         cur = cur->nxt;
     }
     cur_buf = (cur->content);
