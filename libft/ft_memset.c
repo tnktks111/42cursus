@@ -6,7 +6,7 @@
 /*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 13:23:58 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/04/27 15:41:49 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/05/01 19:20:34 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 void	*ft_memset(void *s, int c, size_t n)
 {
-	size_t	rest;
-	char	*cur;
+	size_t			rest;
+	unsigned char	*cur;
 
 	if (!s)
 		return (NULL);
 	rest = n;
-	cur = (char *)s;
+	cur = (unsigned char *)s;
 	while (rest)
 	{
-		*cur++ = (char)c;
+		*cur++ = (unsigned char)c;
 		rest--;
 	}
 	return (s);
