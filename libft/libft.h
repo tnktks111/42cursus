@@ -6,12 +6,12 @@
 /*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 14:15:02 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/05/01 14:56:10 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/05/01 14:58:53 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef LIBFT_H_
-#define LIBFT_H_
+#ifndef LIBFT_H
+# define LIBFT_H
 
 # include <ctype.h>
 # include <limits.h>

@@ -6,7 +6,7 @@
 /*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 13:23:09 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/05/01 14:45:12 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/05/01 14:58:14 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	ft_isspace(int c)
 {
-	unsigned char uc;
+	unsigned char	uc;
 
 	uc = (unsigned char)c;
 	return (uc == ' ' || (9 <= uc && uc <= 13));
