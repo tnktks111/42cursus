@@ -1,49 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/26 13:23:53 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/05/01 14:43:26 by ttanaka          ###   ########.fr       */
+/*   Created: 2025/04/26 13:23:22 by ttanaka           #+#    #+#             */
+/*   Updated: 2025/04/27 21:14:18 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+void	ft_bzero(void *s, size_t n)
 {
-	char		*p1;
-	const char	*p2;
-	
-	p2 = (const char *)src;
-	if (!dest)
-		return (NULL);
-	if (!src)
-		return (dest);
-	p1 = (char *)dest;
+	unsigned char	*c;
+
+	if (!s)
+		return ;
+	c = (unsigned char *)s;
 	while (n)
 	{
-		*p1++ = *p2++;
+		*c++ = '\0';
 		n--;
 	}
-	return (dest);
 }
 
 // int main()
 // {
 // 	char tab[100];
-// 	char src[100];
 // 	memset(tab, 'A', 100);
-// 	memset(src, 0, 100);
-// 	ft_memcpy(tab, src, 0);
+// 	ft_bzero(tab, 0);
 // 	if (tab[0] != 'A')
 // 	{
 // 		printf("Error_1\n");
 // 		return(1);
 // 	}
-// 	ft_memcpy(tab, src, 42);
+// 	ft_bzero(tab, 42);
 // 	for (int i = 0; i < 42; i++)
 // 	{
 // 		if (tab[i] == 'A')
@@ -57,11 +50,7 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 // 		printf("Error_3\n");
 // 		return (1);
 // 	}
-// 	if (ft_memcpy(NULL, src, 42))
-// 	{
-// 		printf("Error_4\n");
-// 		return (1);
-// 	}
+// 	ft_bzero(NULL, 42);
 // 	printf("Success\n");
 // 	return (0);
 // }
