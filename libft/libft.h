@@ -6,20 +6,21 @@
 /*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 14:15:02 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/05/01 14:58:53 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/05/01 15:06:24 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# include <ctype.h>
+# include <stdlib.h>
+# include <unistd.h>
 # include <limits.h>
 # include <stdint.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-# include <unistd.h>
+
+// # include <stdio.h>
+// # include <string.h>
+// # include <ctype.h>
 
 typedef struct s_list
 {
