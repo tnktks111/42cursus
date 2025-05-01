@@ -1,45 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
+/*   ft_lstdelone_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/26 16:11:56 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/04/30 16:37:30 by ttanaka          ###   ########.fr       */
+/*   Created: 2025/04/26 16:06:10 by ttanaka           #+#    #+#             */
+/*   Updated: 2025/04/27 18:09:02 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void *))
+void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
-	t_list	*cur;
-	t_list	*tmp;
-
-	if (!lst || !(*lst) || !(del))
+	if (!lst || !del)
 		return ;
-	cur = *lst;
-	while (cur)
-	{
-		tmp = cur;
-		cur = cur->next;
-		del(tmp->content);
-		free(tmp);
-	}
-	*lst = NULL;
+	(*del)(lst->content);
+	free(lst);
 }
-// compile with ft_lstnew_bonus.c, ft_lstadd_back_bonus.c
+
+// //compile with ft_lstnew_bonus.c
 // int main()
 // {
 // 	t_list *l = ft_lstnew(malloc(1));
-// 	for (int i = 0; i < 10; ++i)
-// 		ft_lstadd_back(&l, ft_lstnew(malloc(1)));
-// 	ft_lstclear(&l, free);
-// 	if (l)
-// 	{
-// 		printf("Error\n");
-// 		return (1);
-// 	}
-// 	printf("Success\n");
+// 	ft_lstdelone(l, free);
+// 	return (0);
 // }

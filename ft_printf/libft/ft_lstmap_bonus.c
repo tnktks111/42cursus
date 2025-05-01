@@ -6,7 +6,7 @@
 /*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 16:21:24 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/04/30 17:00:38 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/04/27 18:50:18 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,15 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
 	t_list	*head;
 	t_list	*new_node;
-	void	*new_content;
 
 	if (!lst || !f || !del)
 		return (NULL);
 	head = NULL;
 	while (lst)
 	{
-		new_content = f(lst->content);
-		new_node = ft_lstnew(new_content);
+		new_node = ft_lstnew(f(lst->content));
 		if (!new_node)
 		{
-			free(new_content);
 			ft_lstclear(&head, del);
 			return (NULL);
 		}
