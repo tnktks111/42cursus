@@ -6,7 +6,7 @@
 /*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 13:23:32 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/04/27 18:55:51 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/05/03 11:42:30 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 static int	ft_islower(int c)
 {
-	return ((unsigned char)c >= 'a' && (unsigned char)c <= 'z');
+	return (c >= 'a' && c <= 'z');
 }
 
 static int	ft_isupper(int c)
 {
-	return ((unsigned char)c >= 'A' && (unsigned char)c <= 'Z');
+	return (c >= 'A' && c <= 'Z');
 }
 
 int	ft_isalpha(int c)
@@ -29,9 +29,9 @@ int	ft_isalpha(int c)
 
 // int main()
 // {
-// 	for (int i = 0; i < 255; i++)
+// 	for (int i = 0; i < 1000; i++)
 // 	{
 // 		if (!(isalpha(i)) != !(ft_isalpha(i)))
-// 			printf("Fail at %d", i);
+// 			printf("Fail at %d\n%d,%d\n", i, isalpha(i), ft_isalpha(i));
 // 	}
 // }

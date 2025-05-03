@@ -6,7 +6,7 @@
 /*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 13:25:00 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/04/27 18:54:11 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/05/03 11:51:50 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	ft_islower(int c)
 {
-	return ((unsigned char)c >= 'a' && (unsigned char)c <= 'z');
+	return (c >= 'a' && c <= 'z');
 }
 
 int	ft_toupper(int c)

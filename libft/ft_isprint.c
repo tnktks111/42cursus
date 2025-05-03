@@ -6,7 +6,7 @@
 /*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 13:23:40 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/04/27 15:02:19 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/05/03 11:51:31 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_isprint(int c)
 {
-	return ((unsigned char)c >= 32 && (unsigned char)c <= 126);
+	return (c >= 32 && c <= 126);
 }
 
 // int main()
