@@ -6,7 +6,7 @@
 #    By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/29 10:36:24 by ttanaka           #+#    #+#              #
-#    Updated: 2025/04/29 10:36:25 by ttanaka          ###   ########.fr        #
+#    Updated: 2025/05/03 11:31:27 by ttanaka          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,8 @@ OBJS_DIR = objs
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
 BONUS_OBJS = $(addprefix $(OBJS_DIR)/, $(BONUS_SRCS:.c=.o))
 
+BONUS_MARKER = .bonus_built
+
 CC = cc
 CFLAGS = -Wall -Wextra -Werror 
 INC = -I.
@@ -40,9 +42,12 @@ $(OBJS_DIR)/%.o : %.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
-bonus: $(OBJS) $(BONUS_OBJS)
+$(BONUS_MARKER): $(OBJS) $(BONUS_OBJS)
 	ar rcs $(NAME) $(OBJS) $(BONUS_OBJS)
 	ranlib $(NAME)
+	@touch $@
+
+bonus: $(BONUS_MARKER)
 
 clean:
 	rm -rf $(OBJS_DIR)
