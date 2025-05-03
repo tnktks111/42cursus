@@ -6,7 +6,7 @@
 /*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 13:24:50 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/04/28 09:42:28 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/05/01 18:59:28 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 // // complie with ft_strlen
 // int main()
 // {
-// 	char s1[] = "aaaabaa42tokyoaaaaa42ataobbbakayaoaaaaaaaaaaaaaaaaaaaa";
-// 	char set[] = "aaabbbbbb";
+// 	char s1[] = "aaaabbbbbabaa42tokyoaaaaa42ataobbbakayaoaaaaaaaaaaaaaaaaaaaa";
+// 	char set[] = "aaabbbbb2b";
 // 	printf("%s\n", ft_strtrim(s1, set));
 // }

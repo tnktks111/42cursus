@@ -1,126 +1,100 @@
 #include "push_swap.h"
 
-typedef struct s_list
+typedef struct s_circ_doubly_list
 {
     int content;
-    struct s_list *next;
-} t_list;
+    t_circ_doubly_list *nxt;
+    t_circ_doubly_list *prv;
+} t_circ_doubly_list;
 
 typedef struct s_list_info
 {
-    t_list *head;
-    t_list *tail;
+    t_circ_doubly_list *head;
+    int size;
 } t_list_info;
 
-t_list	*ft_lstnew(int content)
+t_circ_doubly_list *ft_lstnew(int content)
 {
-	t_list	*newnode;
+	t_circ_doubly_list *newnode;
 
-	newnode = malloc(sizeof(t_list));
+	newnode = malloc(sizeof(t_circ_doubly_list));
 	if (!newnode)
 		return (NULL);
 	newnode->content = content;
-	newnode->next = NULL;
+	newnode->nxt = newnode;
+    newnode->prv = newnode;
 	return (newnode);
 }
 
-t_list	*ft_lstlast(t_list *lst)
+void    swap_node(t_circ_doubly_list *prv, t_circ_doubly_list *nxt)
 {
-	t_list	*tail;
-
-	if (!lst)
-		return (NULL);
-	tail = lst;
-	while (tail->next)
-		tail = tail->next;
-	return (tail);
+    t_circ_doubly_list *tmp;
+    tmp = prv;
+    prv = nxt;
+    nxt = prv;
 }
 
-void	ft_lstadd_front(t_list **lst, t_list *new)
+void    del_node(t_circ_doubly_list *node)
 {
-	if (!lst || !new)
-		return ;
-	new->next = *lst;
-	*lst = new;
+    (node->prv)->nxt = (node->nxt)->prv;
+    (node->nxt)->prv = (node->prv)->nxt;
 }
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+void    insert_node(t_circ_doubly_list *new_node, t_circ_doubly_list *nxt_node)
 {
-	t_list	*cur_last;
-
-	if (!lst)
-		return ;
-	if (!(*lst))
-	{
-		*lst = new;
-		return ;
-	}
-	cur_last = *lst;
-	while (cur_last && cur_last->next)
-		cur_last = cur_last->next;
-	cur_last->next = new;
+    (new_node)->prv = nxt_node->prv;
+    (new_node)->nxt = nxt_node;
+    (nxt_node->prv)->nxt = new_node;
+    nxt_node->prv = new_node;
 }
 
-void	ft_lstdelone(t_list *lst, void (*del)(void *))
+void    push(t_list_info *dst, t_list_info *src)
 {
-	if (!lst || !del)
-		return ;
-	(*del)(lst->content);
-	free(lst);
+    t_list_info *new_src_head;
+    del_node(src->head);
+    new_src_head = (src->head)->nxt;
+    insert_node(src->head, dst->head);
+    dst->head = src->head;
+    src->head = new_src_head;
+    dst->size += 1;
+    src->size -= 1;
 }
 
-void	ft_lstclear(t_list **lst)
+void    rotate(t_list_info *info, int reverse)
 {
-	t_list	*cur;
-	t_list	*tmp;
-
-	if (!lst || !(*lst))
-		return ;
-	cur = *lst;
-	while (cur)
-	{
-		tmp = cur;
-		cur = cur->next;
-		free(tmp);
-	}
-	*lst = NULL;
+    if (reverse)
+        info->head = (info->head)->prv;
+    else
+        info->head = (info->head)->nxt;
 }
 
-
-
-int main(int argc, char *argv[])
+void    merge_sort(t_list_info *dst, t_list_info *src, int len)
 {
-    int i = 0;
-    t_list_info lst_info;
-    t_list *cur;
-
-    lst_info.head = NULL;
-    lst_info.tail = NULL;
-    while (argv[i])
+    t_circ_doubly_list *dst_last;
+    t_circ_doubly_list *src_last;
+    while (len)
     {
-        if (!ft_isdigit(argv[i]))
-        {
-            ft_lstclear(&lst_info.head);
-            ft_putstr_fd("Error\n", 2);
-            return (1);
-        }
-        cur = ft_lstnew(ft_atoi(argv[i]));
-        if (!cur)
-        {
-            ft_lstclear(&lst_info.head);
-            ft_putstr_fd("Error\n", 2);
-            return (1);
-        }
-        if (i == 0)
-        {
-            lst_info.head = cur;
-            lst_info.tail = cur;
-        }
+        dst_last = (dst->head)->prv;
+        src_last = (src->head)->prv;
+        if (dst_last->content < src_last->content)
+            push(dst, src);
         else
-        {
-            ft_lstadd_back(&lst_info.tail, cur);
-            lst_info.tail = cur;
-        }
+            rotate(dst, False);
+        len--;
     }
-
 }
+
+void    insertion_sort
+
+int calc_min_run(int n)
+{
+    int r;
+    while (n >= 64)
+    {
+        r |= n & 1;
+        n >>= 1;
+    }
+    return (n + r);
+}
+
+void    timsort()
