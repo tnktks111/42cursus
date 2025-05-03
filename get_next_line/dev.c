@@ -5,7 +5,7 @@ int main()
     char *s2;
 	char *s3;
     int fd;
-    fd = open("1char.txt", O_RDONLY);
+    fd = open("test.txt", O_RDONLY);
     s1 = get_next_line(fd);
     s2 = get_next_line(fd);
 	s3 = get_next_line(fd);
