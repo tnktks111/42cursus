@@ -6,7 +6,7 @@
 /*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 13:23:55 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/04/29 00:32:03 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/05/01 19:20:10 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	char	*dst_cpy;
-	char	*src_cpy;
-	size_t	i;
+	unsigned char	*dst_cpy;
+	unsigned char	*src_cpy;
+	size_t			i;
 
 	if (!dst || !src)
 		return (dst);
-	dst_cpy = (char *)dst;
-	src_cpy = (char *)src;
+	dst_cpy = (unsigned char *)dst;
+	src_cpy = (unsigned char *)src;
 	if (!len || dst == src)
 		return (dst);
 	if (dst_cpy < src_cpy)
