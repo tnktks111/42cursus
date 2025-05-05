@@ -1,5 +1,4 @@
-#include "ft_printf.h"
-#include "libft.h"
+#include "../inc/ft_printf.h"
 
 int ft_print_addr(void *ptr, int *cnt)
 {
