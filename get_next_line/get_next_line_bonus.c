@@ -17,80 +17,92 @@ t_buf_list *create_t_buf_list_node(int fd)
     newbuf->content->bufsiz = 0;
     newbuf->fd = fd;
     newbuf->nxt = NULL;
-    newbuf->prv = NULL;
     return (newbuf);
 }
 
-int free_node_and_return_err(t_buf_list *node, int err_num)
+void free_node(t_buf_list *node)
 {
     if (!node)
-        return (err_num);
-    (node->prv)->nxt = node->nxt;
-    if (node->nxt)
-        (node->nxt)->prv = node->prv;
+        return ;
     if (node->content)
     {
         if (node->content->buf)
+        {
             free(node->content->buf);
+            node->content->buf = NULL;
+        }
         free(node->content);
+        node->content = NULL;
     }
     free(node);
-    return (err_num);
-}
-int free_all_node_and_return_err(t_buf_list *head, int err_num)
-{
-    t_buf_list *tmp;
-    if (!head)
-        return (err_num);
-    tmp = head;
-    while (head)
-    {
-        tmp = head;
-        head = head->nxt;
-        free_node_and_return_err(tmp, err_num);
-    }
-    return (err_num);
 }
 
 int ft_getc_fd(int fd)
 {
-    static t_buf_list bufl = {NULL, NULL, NULL, -1};
-    t_buf_list *cur;
-    t_buf *cur_buf;
+    static t_buf_list *head = NULL;
+    t_buf_list *curr;
+    t_buf_list *prev;
+    t_buf *curr_buf;
 
-    cur = &bufl;
-    while (cur->nxt)
+    prev = NULL;
+    curr = head;
+    while (curr)
     {
-        if (cur->fd == fd)
+        if (curr->fd == fd)
             break;
-        cur = cur->nxt;
+        prev = curr;
+        curr = curr->nxt;
     }
-    if (cur->fd != fd)
+    if (!curr)
     {
-        cur->nxt = create_t_buf_list_node(fd);
-        if (!(cur->nxt))
+        curr = create_t_buf_list_node(fd);
+        if (!curr)
             return (MALLOC_ERR);
-        (cur->nxt)->prv = cur;
-        cur = cur->nxt;
+        curr->nxt = head;
+        head = curr;
+        prev = NULL;
     }
-    cur_buf = (cur->content);
-    if (cur_buf->bufsiz <= 0)
+    curr_buf = (curr->content);
+    if (curr_buf->bufsiz <= 0)
     {
-        if (!(cur_buf->buf))
+        if (!(curr_buf->buf))
         {
-            cur_buf->buf = malloc(BUFFER_SIZE);
-            if (!(cur_buf->buf))
-                return (free_all_node_and_return_err(bufl.nxt, MALLOC_ERR));
+            curr_buf->buf = malloc(BUFFER_SIZE);
+            if (!(curr_buf->buf))
+            {
+                if (prev)
+                    prev->nxt = curr->nxt;
+                else
+                    head = curr->nxt;
+                free_node(curr);
+                return (MALLOC_ERR);
+            }
+            curr_buf->bufp = curr_buf->buf;
+            curr_buf->bufsiz = 0;
         }
-        cur_buf->bufsiz = read(fd, cur_buf->buf, BUFFER_SIZE);
-        if (cur_buf->bufsiz < 0)
-            return (free_node_and_return_err(cur, RD_ERR));
-        if (cur_buf->bufsiz == 0)
-            return (free_node_and_return_err(cur, EOF));
-        cur_buf->bufp = cur_buf->buf;
+        curr_buf->bufsiz = read(fd, curr_buf->buf, BUFFER_SIZE);
+        curr_buf->bufp = curr_buf->buf;
+        if (curr_buf->bufsiz < 0)
+        {
+            if (prev)
+                prev->nxt = curr->nxt;
+            else
+                head = curr->nxt;
+            free_node(curr);
+            return (RD_ERR);
+        }
+        if (curr_buf->bufsiz == 0)
+        {
+            if (prev)
+                prev->nxt = curr->nxt;
+            else
+                head = curr->nxt;
+            free_node(curr);
+            return (EOF);
+        }
     }
-    (cur_buf->bufsiz)--;
-    return ((unsigned char)(*(cur_buf->bufp)++));
+    (curr_buf->bufsiz)--;
+    return ((unsigned char)(*(curr_buf->bufp)++));
 }
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
@@ -125,7 +137,7 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 int ft_putc(t_string *str, char c)
 {
     char *newstr;
-    if (!(str->len))
+    if (str->cap == 0)
     {
         str->str = malloc(BUFFER_SIZE);
         if (!(str->str))
@@ -133,7 +145,7 @@ int ft_putc(t_string *str, char c)
         str->len = 0;
         str->cap = BUFFER_SIZE;
     }
-    else if (str->len + 1 > str->cap)
+    else if (str->len >= str->cap)
     {
         newstr = malloc(str->cap * 2);
         if (!newstr)
@@ -143,15 +155,14 @@ int ft_putc(t_string *str, char c)
         str->str = newstr;
         str->cap *= 2;
     }
-    str->str[(str->len)] = c;
-    if (c != '\0')
-        str->len++;
+    str->str[(str->len)++] = c;
     return (0);
 }
 
 char *get_next_line(int fd)
 {
     t_string res;
+    char     *final_str;
     int c;
 
     if (fd < 0)
@@ -162,22 +173,37 @@ char *get_next_line(int fd)
     while (1)
     {
         c = ft_getc_fd(fd);
-        if (c == MALLOC_ERR || c == RD_ERR || c == EOF)
+        if (c == MALLOC_ERR || c == RD_ERR)
+        {
+            if (res.str)
+                free(res.str);
+            return (NULL);
+        }
+        if (c == EOF)
             break;
         if (ft_putc(&res, (char)c) == MALLOC_ERR)
         {
-            c = MALLOC_ERR;
-            break;
+            if (res.str)
+                free(res.str);
+            return (NULL);
         }
         if ((char)c == '\n')
             break;
     }
-    if (res.str == NULL || c == RD_ERR || c == MALLOC_ERR)
+    if (res.len == 0)
+    {
+        if (res.str)
+            free(res.str);
+        return (NULL);
+    }
+    final_str = (char *)malloc(sizeof(char) * (res.len + 1));
+    if (!final_str)
     {
         free(res.str);
-        return NULL;
+        return (NULL);
     }
-    if (res.len > 0)
-        ft_putc(&res, '\0');
-    return res.str;
+    ft_memmove(final_str, res.str, res.len);
+    final_str[res.len] = '\0';
+    free(res.str);
+    return (final_str);
 }

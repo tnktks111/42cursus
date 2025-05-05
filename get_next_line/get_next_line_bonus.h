@@ -6,7 +6,7 @@
 /*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 10:58:35 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/04/29 11:12:45 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/05/04 23:21:29 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ typedef struct s_buf_list
 {
     t_buf *content;
     struct s_buf_list *nxt;
-    struct s_buf_list *prv;
     int fd;
 } t_buf_list;
 
@@ -51,7 +50,6 @@ void	*ft_memmove(void *dst, const void *src, size_t len);
 int     ft_putc(t_string *str, char c);
 char    *get_next_line(int fd);
 t_buf_list *create_t_buf_list_node(int fd);
-int free_node_and_return_err(t_buf_list *node, int err_num);
-int free_all_node_and_return_err(t_buf_list *head, int err_num);
+void free_node(t_buf_list *node);
 
 #endif
