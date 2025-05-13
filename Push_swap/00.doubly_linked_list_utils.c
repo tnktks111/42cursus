@@ -1,6 +1,6 @@
 /*
 ft_lstnew ... receive a content and return node
-del_node ... delete a linked list node
+sep_node ... separate a linked list node
 insert_node ... insert "new_node" before "nxt_node"
 push ... push "src" head to "dst"
 swap ... receive a "t_list_info" and apply "swap" to it
@@ -22,14 +22,18 @@ t_circ_doubly_list *ft_lstnew(long content)
 	return (newnode);
 }
 
-void    del_node(t_circ_doubly_list *node)
+void    sep_node(t_circ_doubly_list *node)
 {
+    if (!node)
+        return;
     (node->prv)->nxt = node->nxt;
     (node->nxt)->prv = node->prv;
 }
 
 void    insert_node(t_circ_doubly_list *new_node, t_circ_doubly_list *nxt_node)
 {
+    if (!new_node || !nxt_node)
+        return;
     (new_node)->prv = nxt_node->prv;
     (new_node)->nxt = nxt_node;
     (nxt_node->prv)->nxt = new_node;
@@ -38,20 +42,40 @@ void    insert_node(t_circ_doubly_list *new_node, t_circ_doubly_list *nxt_node)
 
 void    push(t_list_info *dst, t_list_info *src)
 {
-    t_list_info *new_src_head;
-    del_node(src->head);
-    new_src_head = (src->head)->nxt;
-    insert_node(src->head, dst->head);
-    dst->head = src->head;
-    src->head = new_src_head;
-    dst->size += 1;
-    src->size -= 1;
+    t_circ_doubly_list *node_to_move;
+
+    if (src->size == 0)
+        return;
+    node_to_move = src->head;
+    if (src->size == 1)
+        src->head = NULL;
+    else
+    {
+        src->head = node_to_move->nxt;
+        sep_node(src->head);
+    }
+    (src->size)--;
+    if (dst->size == 0)
+    {
+        dst->head = node_to_move;
+        node_to_move->nxt = node_to_move;
+        node_to_move->prv = node_to_move;
+    }
+    else
+    {
+        insert_node(node_to_move, dst->head);
+        dst->head = node_to_move;
+    }
+    (dst->size)++;
 }
 
 void swap(t_list_info *info)
 {
     int content_tmp;
     int in_lis_tmp;
+
+    if (!info || !info->head || info->size < 2)
+        return ;
     content_tmp = (info->head)->content;
     (info->head)->content = (info->head->nxt)->content;
     (info->head->nxt)->content = content_tmp;
