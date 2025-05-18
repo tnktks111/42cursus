@@ -4,15 +4,7 @@
 
 #include "push_swap.h"
 
-long ft_min(long a, long b)
-{
-    if (a < b)
-        return (a);
-    else
-        return (b);
-}
-
-int free_dp_table(long **table, int allocate)
+static int free_dp_table(long **table, int allocate)
 {
     int i;
 
@@ -23,6 +15,46 @@ int free_dp_table(long **table, int allocate)
     return (EXIT_FAILURE);
 }
 
+
+
+int check_and_rotate_for_lis(t_list_info *list_a, t_command_list *t_command_list)
+{
+    int *l_a;
+    int *l_a_copy;
+    int min;
+    int i;
+
+    l_a = list_to_array(list_a->head, list_a->size);
+    l_a_copy = list_to_array(list_a->head, list_a->size);
+    quick_sort(l_a_copy, 0, list_a->size);
+    min = l_a_copy[0];
+    i = -1;
+    while (++i < list_a->size - 1)
+    {
+        if (l_a_copy[i] == l_a_copy[i + 1])
+            return (EXIT_FAILURE);
+    }
+    i = -1;
+    while (++i < list_a->size)
+    {
+        if (l_a[i] == min)
+            break;
+    }
+    i = return_min_dist(i, list_a->size);
+    while (i-- > 0)
+    {
+        rotate(list_a, False);
+        t_command_list->array[t_command_list->total++] = ra;
+    }
+    while (i++ < 0)
+    {
+        rotate(list_a, True);
+        t_command_list->array[t_command_list->total++] = rra;
+    }
+    return (EXIT_SUCCESS);
+} 
+
+//i...idx, j ... length(- 1)
 int lis(t_list_info *info)
 {
     t_circ_doubly_list *curr;

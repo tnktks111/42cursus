@@ -24,7 +24,7 @@ static long	ft_atoi_for_pushswap(const char *str)
 	while (*str && ('0' <= *str && *str <= '9'))
 	{
 		num = num * 10 + (*str++ - '0');
-        if (sign > 0 && num > INT_MAX || sign < 0 && num > -(long)INT_MIN)
+        if ((sign > 0 && num > INT_MAX) || (sign < 0 && num > -(long)INT_MIN))
             return (LONG_MAX);
 	}
     if (*str)
@@ -67,6 +67,8 @@ t_circ_doubly_list	*ft_lstmap(int argc, char *argv[])
 
 int argv_parser(int argc, char *argv[], t_list_info *info)
 {
+    int *l;
+
     info->head = ft_lstmap(argc, argv);
     if (!info->head)
         return (EXIT_FAILURE);

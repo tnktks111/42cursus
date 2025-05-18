@@ -51,8 +51,8 @@ void    push(t_list_info *dst, t_list_info *src)
         src->head = NULL;
     else
     {
-        src->head = node_to_move->nxt;
-        sep_node(src->head);
+        src->head = (src->head)->nxt;
+        sep_node(node_to_move);
     }
     (src->size)--;
     if (dst->size == 0)
@@ -96,6 +96,9 @@ void    free_all_node(t_circ_doubly_list *head)
 {
     t_circ_doubly_list *curr;
     t_circ_doubly_list *tmp;
+
+    if (!head)
+        return;
     curr = head->nxt;
     while (curr && curr != head)
     {
