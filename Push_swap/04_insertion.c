@@ -3,7 +3,7 @@
 //0 1 2 3 -3 -2 -1
 
 //にぶたん
-int find_insert_point(int *array, int size, int target)
+int find_insert_point(long *array, int size, int target)
 {
     int left;
     int right;
@@ -39,7 +39,7 @@ int find_insert_point(int *array, int size, int target)
 void gen_score_info(t_list_info *info_a, t_list_info *info_b, t_score_info score_info[])
 {
     int i;
-    int *l_a;
+    long *l_a;
     t_circ_doubly_list *curr;
 
     l_a = list_to_array(info_a->head, info_a->size);

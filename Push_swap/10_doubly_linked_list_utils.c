@@ -84,7 +84,7 @@ void swap(t_list_info *info)
     (info->head->nxt)->in_lis = in_lis_tmp;
 }
 
-void    rotate(t_list_info *info, int reverse)
+void    rotate(t_list_info *info, t_bool reverse)
 {
     if (reverse)
         info->head = (info->head)->prv;
@@ -107,4 +107,14 @@ void    free_all_node(t_circ_doubly_list *head)
         free(tmp);
     }
     free(head);
+}
+
+void    insert_node_tail(t_circ_doubly_list *new_node, t_circ_doubly_list *tail_node)
+{
+    if (!new_node || !tail_node)
+        return;
+    (new_node)->nxt = (tail_node)->nxt;
+    ((tail_node)->nxt)->prv = new_node;
+    (tail_node)->nxt = new_node;
+    (new_node)->prv = tail_node;
 }

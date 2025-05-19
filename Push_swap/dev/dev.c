@@ -1,39 +1,47 @@
-int find_insert_point(int *array, int size, int target)
+#include "../push_swap.h"
+long ft_min(long a, long b)
 {
-    int left;
-    int right;
-    int mid;
+    if (a > b)
+        return (b);
+    else
+        return (a);
+}
 
-    left = 0;
-    right = size - 1;
-    if (array[left] < array[right] && (target < array[left] || target > array[right]))
-        return (0);
-    if (array[right] < target && target < array[left])
-        return (0);
-    while (right - left > 1)
+static int solve_lis_length(long *l, int size)
+{
+    long *dp;
+    int i;
+    int j;
+
+    dp = (long *)malloc(sizeof(long) * size);
+    if (!dp)
+        return (EXIT_FAILURE);
+    i = -1;
+    while (++i < size)
+        dp[i] = INF;
+    i = -1;
+    while (++i < size)
     {
-        mid = (right - left) / 2 + left;
-        if (array[mid] < array[right])
+        j = -1;
+        while (++j <= i)
         {
-            if (target > array[mid] && target < array[right])
-                left = mid;
-            else
-                right = mid;
-        }
-        else
-        {
-            if (target > array[left] && target < array[mid])
-                right = mid;
-            else
-                left = mid;
+            if (j == 0 || l[i] > dp[j - 1])
+                dp[j] = ft_min(l[i], dp[j]);
         }
     }
-    return (right);
+    i = -1;
+    while (++i < size)
+        printf("%ld\n", dp[i]);
+    i = -1;
+    while (++i < size)
+        if (dp[i] == INF)
+            break;
+    return (i);
 }
 
 #include <stdio.h>
 int main()
 {
-    int array[6] = {5, 7, 9};
-    printf("%d", find_insert_point(array, 3, 6));
+    long array[3] = {5, 7, 9};
+    printf("%d", solve_lis_length(array, 3));
 }

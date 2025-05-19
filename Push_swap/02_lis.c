@@ -15,44 +15,34 @@ static int free_dp_table(long **table, int allocate)
     return (EXIT_FAILURE);
 }
 
-
-
-int check_and_rotate_for_lis(t_list_info *list_a, t_command_list *t_command_list)
+static int solve_lis_length(long *l, int size)
 {
-    int *l_a;
-    int *l_a_copy;
-    int min;
+    long *dp;
     int i;
+    int j;
 
-    l_a = list_to_array(list_a->head, list_a->size);
-    l_a_copy = list_to_array(list_a->head, list_a->size);
-    quick_sort(l_a_copy, 0, list_a->size);
-    min = l_a_copy[0];
+    dp = (long *)malloc(sizeof(long) * size);
+    if (!dp)
+        return (EXIT_FAILURE);
     i = -1;
-    while (++i < list_a->size - 1)
+    while (++i < size)
+        dp[i] = INF;
+    i = -1;
+    while (++i < size)
     {
-        if (l_a_copy[i] == l_a_copy[i + 1])
-            return (EXIT_FAILURE);
+        j = -1;
+        while (++j <= i)
+        {
+            if (j == 0 || l[i] > dp[j - 1])
+                dp[j] = ft_min(l[i], dp[j]);
+        }
     }
     i = -1;
-    while (++i < list_a->size)
-    {
-        if (l_a[i] == min)
+    while (++i < size)
+        if (dp[i] == INF)
             break;
-    }
-    i = return_min_dist(i, list_a->size);
-    while (i-- > 0)
-    {
-        rotate(list_a, False);
-        t_command_list->array[t_command_list->total++] = ra;
-    }
-    while (i++ < 0)
-    {
-        rotate(list_a, True);
-        t_command_list->array[t_command_list->total++] = rra;
-    }
-    return (EXIT_SUCCESS);
-} 
+    return (i);
+}
 
 //i...idx, j ... length(- 1)
 int lis(t_list_info *info)
@@ -62,17 +52,30 @@ int lis(t_list_info *info)
     long *l;
     int i;
     int j;
+    int max;
+    int tmp;
 
-    l = (long *)malloc(sizeof(long) * (info->size));
-    if (!l)
-        return (EXIT_FAILURE);
-    i = -1;
+    max = 0;
     curr = info->head;
+    i = -1;
     while (++i < info->size)
     {
-        l[i] = curr->content;
+        l = list_to_array(curr, info->size);
+        tmp = solve_lis_length(l, info->size);
+        if (i == 0 && tmp == info->size)
+            return (EXIT_SORTED);
+        if (tmp < max)
+        {
+            tmp = max;
+            j = i;
+        }
+        free(l);
         curr = curr->nxt;
     }
+    curr = info->head;
+    while (j-- > 0)
+        curr = curr->nxt;
+    l = list_to_array(curr, info->size);
     dp = (long **)malloc(sizeof(long *) * (info->size));
     if (!dp)
         return (EXIT_FAILURE);
@@ -115,7 +118,6 @@ int lis(t_list_info *info)
         }
         i--;
     }
-    curr = info->head;
     i = 0;
     while (i < info -> size)
     {

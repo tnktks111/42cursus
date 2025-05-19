@@ -27,17 +27,24 @@ int main(int argc, char *argv[])
     t_list_info info_a;
     t_list_info info_b;
     t_command_list command_list;
+    int signal;
 
     command_list.total = 0;
-    if (argv_parser(argc, argv, &info_a) == EXIT_FAILURE)
-        return (ft_puterr());
+    signal = argv_parser(argc, argv, &info_a);
+    if (signal == EXIT_FAILURE)
+        return (ft_puterr(), 1);
+    if (signal == EXIT_SORTED)
+        return (0);
     if (info_a.size > 1)
     {
-        if (lis(&info_a) == EXIT_FAILURE)
+        signal = lis(&info_a);
+        if (signal == EXIT_FAILURE)
         {
             free_all_node(info_a.head);
-            return (ft_puterr());
+            return (ft_puterr(), 1);
         }
+        if (signal == EXIT_SORTED)  
+            return (0);
         separator(&info_a, &info_b, &command_list);
         insertor(&info_a, &info_b, &command_list);
         final_rotator(&info_a, &command_list);

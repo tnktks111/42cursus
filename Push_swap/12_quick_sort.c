@@ -1,15 +1,15 @@
 #include "push_swap.h"
 
-static void    swap(int *a, int *b)
+static void    int_swap(long *a, long *b)
 {
-    int tmp;
+    long tmp;
 
     tmp = *a;
     *a = *b;
     *b = tmp;
 }
 
-static int    partition (int array[], int left, int right) {
+static int    partition (long array[], int left, int right) {
     int i;
     int j;
     int pivot;
@@ -23,13 +23,13 @@ static int    partition (int array[], int left, int right) {
         while (array[pivot] < array[--j] && j != left);
         if (i >= j)
             break;
-        swap(&array[i], &array[j]);
+        int_swap(&array[i], &array[j]);
     }
-    swap(&array[pivot], &array[j]);
+    int_swap(&array[pivot], &array[j]);
     return j;
 }
 
-void   quick_sort(int array[], int left, int right)
+void   quick_sort(long array[], int left, int right)
 {
     int q;
 

@@ -41,12 +41,12 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-int* list_to_array(t_circ_doubly_list *head, int size)
+long* list_to_array(t_circ_doubly_list *head, int size)
 {
-    int *array;
+    long *array;
     int i;
 
-    array = (int *)malloc(sizeof(int) * size);
+    array = (long *)malloc(sizeof(long) * size);
     if (!array)
         return (NULL);
     i = 0;
@@ -64,37 +64,4 @@ int return_min_dist(int idx, int total)
         return (idx);
     else
         return -(total - idx);
-}
-//にぶたん
-int find_insert_point(int *array, int size, int target)
-{
-    int left;
-    int right;
-    int mid;
-
-    left = 0;
-    right = size - 1;
-    if (array[left] < array[right] && (target < array[left] || target > array[right]))
-        return (0);
-    if (array[right] < target && target < array[left])
-        return (0);
-    while (right - left > 1)
-    {
-        mid = (right - left) / 2 + left;
-        if (array[mid] < array[right])
-        {
-            if (target > array[mid] && target < array[right])
-                left = mid;
-            else
-                right = mid;
-        }
-        else
-        {
-            if (target > array[left] && target < array[mid])
-                right = mid;
-            else
-                left = mid;
-        }
-    }
-    return (right);
 }
