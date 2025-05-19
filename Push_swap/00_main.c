@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-void command_printer(t_command_list command_list)
+int command_printer(t_command_list command_list)
 {
     int i;
     const char *command_strings[] = {
@@ -14,12 +14,14 @@ void command_printer(t_command_list command_list)
         "rr\n",
         "rra\n",
         "rrb\n",
-        "rrr\n"
+        "rrr\n",
+        "sample\n"
     };
 
     i = -1;
     while (++i < command_list.total)
         write(1, command_strings[command_list.array[i]], ft_strlen(command_strings[command_list.array[i]]));
+    return (0);
 }
 
 int main(int argc, char *argv[])
@@ -29,6 +31,7 @@ int main(int argc, char *argv[])
     t_command_list command_list;
     int signal;
 
+    command_list.argc = argc;
     command_list.total = 0;
     signal = argv_parser(argc, argv, &info_a);
     if (signal == EXIT_FAILURE)
@@ -43,9 +46,9 @@ int main(int argc, char *argv[])
         if (signal == EXIT_SORTED)  
             return (0);
         separator(&info_a, &info_b, &command_list);
-        insertor(&info_a, &info_b, &command_list);
+        if (insertor(&info_a, &info_b, &command_list) == EXIT_FAILURE)
+            return (ft_puterr(), 1);
         final_rotator(&info_a, &command_list);
     }
-    command_printer(command_list);
-    return (0);
+    return (command_printer(command_list));
 }

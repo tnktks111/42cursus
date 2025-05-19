@@ -58,14 +58,14 @@ void gen_score_info(t_list_info *info_a, t_list_info *info_b, t_score_info score
     free(l_a);
 }
 
-int calc_min_score(t_score_info *score_info)
+void calc_min_score(t_score_info *score_info)
 {
     int res;
     res = ft_max(score_info->a_score, score_info->b_score);
     res = ft_min(res, -ft_min(score_info->a_rev_score, score_info->b_rev_score));
     res = ft_min(res, score_info->a_score - score_info->b_rev_score);
     res = ft_min(res, score_info->b_score - score_info->a_rev_score);
-    return (res);
+    score_info->min_score = res;
 }
 
 int calc_min_score_idx(t_score_info score_info[], int size)
@@ -76,11 +76,11 @@ int calc_min_score_idx(t_score_info score_info[], int size)
 
     i = 0;
     res = 0;
-    score_info[i].min_score = calc_min_score(&score_info[i]);
-    min_score = calc_min_score(&score_info[i]);
+    calc_min_score(&score_info[0]);
+    min_score = score_info[0].min_score;
     while (++i < size)
     {
-        score_info[i].min_score = calc_min_score(&score_info[i]);
+        calc_min_score(&score_info[i]);
         if (score_info[i].min_score < min_score)
         {
             min_score = score_info[i].min_score;
@@ -90,131 +90,86 @@ int calc_min_score_idx(t_score_info score_info[], int size)
     return (res);
 }
 
-// insert_min_score_node(int min_score_idx, t_score_info score_info, t_command_list *command_list)
-// {
-//     if (ft_max(score_info.a_score, score_info.b_score) == score_info.min_score)
-//     {
-        
-//     }
-//     else if (-ft_min(score_info.a_rev_score, score_info.b_rev_score) == score_info.min_score)
-//     {
-
-//     }
-//     else if (score_info.a_score - score_info.b_rev_score == score_info.min_score)
-//     {
-
-//     }
-//     else (score_info.b_score - score_info.a_rev_score == score_info.min_score)
-//     {
-
-//     }
-// }
-
-void calcularor(t_list_info *info_a, t_list_info *info_b, t_command_list *command_list)
+void set_rotate_cnt(t_score_info *score_info, int a, int b, int ab)
 {
-    t_score_info *score_info;
-    t_score_info *target_info;
-    int i;
-    int min_score_idx;
+    score_info->rotate_a_cnt = a;
+    score_info->rotate_b_cnt = b;
+    score_info->rotate_ab_cnt = ab;
+}
 
-    score_info = (t_score_info *)malloc(sizeof(t_score_info) * info_b->size);
-    if (!score_info)
-        return;
-    gen_score_info(info_a, info_b, score_info);
-    min_score_idx = calc_min_score_idx(score_info, info_b->size);
-    // insert_min_score_node(min_score_idx, score_info[min_score_idx], command_list);
-    target_info = &score_info[min_score_idx];
-    if (ft_max(target_info->a_score, target_info->b_score) == target_info->min_score)
+void decide_rotate_cnt(t_score_info *s_info)
+{
+    if ((s_info->min_score) == ft_max(s_info->a_score, s_info->b_score))
     {
-        i = ft_min(target_info->a_score, target_info->b_score);
-        while (i--)
-        {
-            rotate(info_a, False);
-            rotate(info_b, False);
-            command_list->array[command_list->total++] = rr;
-        }
-        i = ft_abs(target_info->a_score - target_info->b_score);
-        if (target_info->a_score > target_info->b_score)
-        {
-            while (i--)
-            {
-                rotate(info_a, False);
-                command_list->array[command_list->total++] = ra;
-            }
-        }
+        if (s_info->a_score > s_info->b_score)
+            set_rotate_cnt(s_info, s_info->a_score - s_info->b_score, 0, s_info->b_score);
         else
-        {
-            while (i--)
-            {
-                rotate(info_b, False);
-                command_list->array[command_list->total++] = rb;
-            }
-        }
+            set_rotate_cnt(s_info, 0, s_info->b_score - s_info->a_score, s_info->a_score);
     }
-    else if (-ft_min(target_info->a_rev_score, target_info->b_rev_score) == target_info->min_score)
+    else if (s_info->min_score == -ft_min(s_info->a_rev_score, s_info->b_rev_score))
     {
-        i = -ft_max(target_info->a_rev_score, target_info->b_rev_score);
-        while (i--)
-        {
-            rotate(info_a, True);
-            rotate(info_b, True);
-            command_list->array[command_list->total++] = rrr;
-        }
-        i = ft_abs(target_info->a_rev_score - target_info->b_rev_score);
-        if (target_info->a_rev_score > target_info->b_rev_score)
-        {
-            while (i--)
-            {
-                rotate(info_b, True);
-                command_list->array[command_list->total++] = rrb;
-            }
-        }
+        if (s_info->a_rev_score < s_info->b_rev_score)
+            set_rotate_cnt(s_info, s_info->a_rev_score - s_info->b_rev_score, 0, s_info->b_rev_score);
         else
-        {
-            while (i--)
-            {
-                rotate(info_a, True);
-                command_list->array[command_list->total++] = rra;
-            }
-        }
+            set_rotate_cnt(s_info, 0, s_info->b_rev_score - s_info->a_rev_score, s_info->a_rev_score);
     }
-    else if (target_info->a_score - target_info->b_rev_score == target_info->min_score)
+    else if (s_info->min_score == s_info->a_score - s_info->b_rev_score)
+        set_rotate_cnt(s_info, s_info->a_score, s_info->b_rev_score, 0);
+    else
+        set_rotate_cnt(s_info, s_info->a_rev_score, s_info->b_score, 0);
+}
+
+void rotate_ab_stack(t_score_info *target_info, t_list_info *info_a, t_list_info *info_b, t_command_list *command_list)
+{
+    if (target_info->rotate_ab_cnt > 0)
     {
-        i = target_info->a_score;
-        while (i--)
-        {
-            rotate(info_a, False);
-            command_list->array[command_list->total++] = ra;
-        }
-        i = -target_info->b_rev_score;
-        while (i--)
-        {
-            rotate(info_b, True);
-            command_list->array[command_list->total++] = rrb;
-        } 
+        while (target_info->rotate_ab_cnt-- > 0)
+            rotate_two_stack(info_a, info_b, command_list, rr);
     }
     else
     {
-        i = -target_info->a_rev_score;
-        while (i--)
-        {
-            rotate(info_a, True);
-            command_list->array[command_list->total++] = rra;
-        }
-        i = target_info->b_score;
-        while (i--)
-        {
-            rotate(info_b, False);
-            command_list->array[command_list->total++] = rb;
-        }
+        while (target_info->rotate_ab_cnt++ < 0)
+            rotate_two_stack(info_a, info_b, command_list, rrr);
     }
-    push(info_a, info_b);
-    command_list->array[command_list->total++] = pa;
-    free(score_info);
+    if (target_info->rotate_a_cnt > 0)
+    {
+        while (target_info->rotate_a_cnt-- > 0)
+            rotate(info_a, False, command_list, ra);
+    }
+    else
+    {
+        while (target_info->rotate_a_cnt++ < 0)
+            rotate(info_a, True, command_list, rra);
+    }
+    if (target_info->rotate_b_cnt > 0)
+    {
+        while (target_info->rotate_b_cnt-- > 0)
+            rotate(info_b, False, command_list, rb);
+    }
+    else
+    {
+        while (target_info->rotate_b_cnt++ < 0)
+            rotate(info_b, True, command_list, rrb);
+    }
 }
 
-void insertor(t_list_info *info_a, t_list_info *info_b, t_command_list *command_list)
+int insertor(t_list_info *info_a, t_list_info *info_b, t_command_list *command_list)
 {
+    t_score_info *score_info;
+    t_score_info *target_info;
+    int min_score_idx;
     while (info_b->head)
-        calcularor(info_a, info_b, command_list);
+    {
+        score_info = (t_score_info *)malloc(sizeof(t_score_info) * info_b->size);
+        if (!score_info)
+            return(EXIT_FAILURE);
+        gen_score_info(info_a, info_b, score_info);
+        min_score_idx = calc_min_score_idx(score_info, info_b->size);
+        target_info = &score_info[min_score_idx];
+        decide_rotate_cnt(target_info);
+        rotate_ab_stack(target_info, info_a, info_b, command_list);
+        push(info_a, info_b, command_list, pa);
+        free(score_info);
+    }
+    return (EXIT_SUCCESS);
 }

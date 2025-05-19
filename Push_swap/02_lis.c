@@ -4,7 +4,7 @@
 
 #include "push_swap.h"
 
-static int free_dp_table(long **table, int allocate)
+void free_dp_table(long **table, int allocate)
 {
     int i;
 
@@ -12,7 +12,6 @@ static int free_dp_table(long **table, int allocate)
     while (i < allocate)
         free(table[i++]);
     free(table);
-    return (EXIT_FAILURE);
 }
 
 static int solve_lis_length(long *l, int size)
@@ -44,11 +43,9 @@ static int solve_lis_length(long *l, int size)
     return (i);
 }
 
-//i...idx, j ... length(- 1)
-int lis(t_list_info *info)
+static int start_idx_for_circular_lis(t_list_info *info)
 {
     t_circ_doubly_list *curr;
-    long **dp;
     long *l;
     int i;
     int j;
@@ -56,41 +53,54 @@ int lis(t_list_info *info)
     int tmp;
 
     max = 0;
-    curr = info->head;
     i = -1;
+    curr = info->head;
     while (++i < info->size)
     {
         l = list_to_array(curr, info->size);
         tmp = solve_lis_length(l, info->size);
         if (i == 0 && tmp == info->size)
             return (EXIT_SORTED);
-        if (tmp < max)
+        if (tmp > max)
         {
-            tmp = max;
+            max = tmp;
             j = i;
         }
         free(l);
         curr = curr->nxt;
     }
-    curr = info->head;
-    while (j-- > 0)
-        curr = curr->nxt;
-    l = list_to_array(curr, info->size);
-    dp = (long **)malloc(sizeof(long *) * (info->size));
+    return (j);
+}
+
+long **init_dp_table(int size)
+{
+    long **dp;
+    int i;
+    int j;
+
+    dp = (long **)malloc(sizeof(long *) * size);
     if (!dp)
-        return (EXIT_FAILURE);
+        return (NULL);
     i = -1;
-    while (++i < info->size)
+    while (++i < size)
     {
-        dp[i] = (long *)malloc(sizeof(long) * (info->size));
+        dp[i] = (long *)malloc(sizeof(long) * size);
         if (!dp[i])
-            return (free_dp_table(dp, i));
+            return (free_dp_table(dp, i), NULL);
         j = 0;
-        while (j < info->size)
+        while (j < size)
             dp[i][j++] = INF;
     }
+    return (dp);
+}
+
+long **create_dp_table(long **dp, long *l, int size)
+{
+    int i;
+    int j;
+
     i = -1;
-    while (++i < info->size)
+    while (++i < size)
     {
         j = -1;
         while (++j <= i)
@@ -101,11 +111,18 @@ int lis(t_list_info *info)
             else
                 dp[i][j] = dp[i - 1][j];
     }
+    return (dp);
+}
+
+void lis_restorator(long **dp, long *l, int size)
+{
+    int i;
+    int j;
     j = 0;
-    while (j < (info->size) && dp[(info->size) - 1][j] != INF)
+    while (j < (size) && dp[size - 1][j] != INF)
         j++;
     i = 0;
-    while (i < info->size)
+    while (i < size)
         l[i++] = 0;
     i--;
     j--;
@@ -118,6 +135,26 @@ int lis(t_list_info *info)
         }
         i--;
     }
+}
+
+//i...idx, j ... length(- 1)
+int lis(t_list_info *info)
+{
+    t_circ_doubly_list *curr;
+    long **dp;
+    long *l;
+    int i;
+
+    i = start_idx_for_circular_lis(info);
+    curr = info->head;
+    while (i-- > 0)
+        curr = curr->nxt;
+    l = list_to_array(curr, info->size);
+    dp = init_dp_table(info->size);
+    if (!dp)
+        return (EXIT_FAILURE);
+    create_dp_table(dp, l, info->size);
+    lis_restorator(dp, l, info->size);
     i = 0;
     while (i < info -> size)
     {
@@ -126,7 +163,5 @@ int lis(t_list_info *info)
             curr->in_lis = 1;
         curr = curr->nxt;
     }
-    free(l);
-    free_dp_table(dp, i);
-    return (EXIT_SUCCESS);
+    return (free(l), free_dp_table(dp, i), EXIT_SUCCESS);
 }

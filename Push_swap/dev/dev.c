@@ -31,9 +31,6 @@ static int solve_lis_length(long *l, int size)
     }
     i = -1;
     while (++i < size)
-        printf("%ld\n", dp[i]);
-    i = -1;
-    while (++i < size)
         if (dp[i] == INF)
             break;
     return (i);
@@ -42,6 +39,6 @@ static int solve_lis_length(long *l, int size)
 #include <stdio.h>
 int main()
 {
-    long array[3] = {5, 7, 9};
-    printf("%d", solve_lis_length(array, 3));
+    long array[10]= {5, 3, 9, 4, 6, 0, 2, 1, 7, 8};
+    printf("%d", solve_lis_length(array, 10));
 }

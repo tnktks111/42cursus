@@ -22,18 +22,12 @@ void final_rotator(t_list_info *info, t_command_list *command_list)
     if (i > 0)
     {
         while (i--)
-        {
-            rotate(info, False);
-            command_list->array[command_list->total++] = ra;
-        }
+            rotate(info, False, command_list, ra);
     }
     else
     {
         i *= -1;
         while (i--)
-        {
-            rotate(info, True);
-            command_list->array[command_list->total++] = rra;
-        }
+            rotate(info, True, command_list, rra);
     }
 }

@@ -40,22 +40,21 @@ void    insert_node(t_circ_doubly_list *new_node, t_circ_doubly_list *nxt_node)
     nxt_node->prv = new_node;
 }
 
-void    push(t_list_info *dst, t_list_info *src)
+void    push(t_list_info *dst, t_list_info *src, t_command_list *command_list, t_commands cmd)
 {
     t_circ_doubly_list *node_to_move;
 
     if (src->size == 0)
         return;
     node_to_move = src->head;
-    if (src->size == 1)
+    if ((src->size)-- == 1)
         src->head = NULL;
     else
     {
         src->head = (src->head)->nxt;
         sep_node(node_to_move);
     }
-    (src->size)--;
-    if (dst->size == 0)
+    if ((dst->size)++ == 0)
     {
         dst->head = node_to_move;
         node_to_move->nxt = node_to_move;
@@ -66,10 +65,11 @@ void    push(t_list_info *dst, t_list_info *src)
         insert_node(node_to_move, dst->head);
         dst->head = node_to_move;
     }
-    (dst->size)++;
+    if (cmd != pass)
+        command_list->array[command_list->total++] = cmd;
 }
 
-void swap(t_list_info *info)
+void swap(t_list_info *info, t_command_list *command_list, t_commands cmd)
 {
     int content_tmp;
     int in_lis_tmp;
@@ -82,14 +82,34 @@ void swap(t_list_info *info)
     in_lis_tmp = (info->head)->in_lis;
     (info->head)->in_lis = (info->head->nxt)->in_lis;
     (info->head->nxt)->in_lis = in_lis_tmp;
+    if (cmd != pass)
+        command_list->array[command_list->total++] = cmd;
 }
 
-void    rotate(t_list_info *info, t_bool reverse)
+void    rotate(t_list_info *info, t_bool reverse, t_command_list *command_list, t_commands cmd)
 {
-    if (reverse)
+    if (reverse == True)
         info->head = (info->head)->prv;
     else
         info->head = (info->head)->nxt;
+    if (cmd != pass)
+        command_list->array[command_list->total++] = cmd;
+}
+
+void    rotate_two_stack(t_list_info *info_a, t_list_info *info_b, t_command_list *command_list, t_commands cmd)
+{
+    if (cmd == rr)
+    {
+        rotate(info_a, False, command_list, pass);
+        rotate(info_b, False, command_list, pass);
+        command_list->array[command_list->total++] = rr;
+    }
+    else
+    {
+        rotate(info_a, True, command_list, pass);
+        rotate(info_b, True, command_list, pass);
+        command_list->array[command_list->total++] = rrr;
+    }
 }
 
 void    free_all_node(t_circ_doubly_list *head)
