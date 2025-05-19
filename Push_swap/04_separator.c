@@ -1,17 +1,5 @@
 #include "push_swap.h"
 
-int find_median(t_circ_doubly_list *head, int size)
-{
-    long *l;
-    long res;
-
-    l = list_to_array(head, size);
-    quick_sort(l, 0, size - 1);
-    res = (l[(size - 1) / 2 ] + l[size / 2]) / 2;
-    free(l);
-    return res;
-}
-
 void separator(t_list_info *info_a, t_list_info *info_b, t_command_list *command_list)
 {
     int i;

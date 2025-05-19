@@ -54,41 +54,46 @@ typedef struct s_score_info
     int rotate_ab_cnt;
 } t_score_info;
 
-//doubly_linked_list_utils.c
-t_circ_doubly_list *ft_lstnew(long content);
-void               sep_node(t_circ_doubly_list *node);
-void               insert_node(t_circ_doubly_list *new_node, t_circ_doubly_list *nxt_node);
-void               push(t_list_info *dst, t_list_info *src, t_command_list *command_list, t_commands cmd);
-void               swap(t_list_info *info, t_command_list *command_list, t_commands cmd);
-void               rotate(t_list_info *info, t_bool reverse, t_command_list *command_list, t_commands cmd);
-void               rotate_two_stack(t_list_info *info_a, t_list_info *info_b, t_command_list *command_list, t_commands cmd);
-void               free_all_node(t_circ_doubly_list *head);
-
 int argv_parser(int argc, char *argv[], t_list_info *info);
-
-//lis.c
-int                lis(t_list_info *info);
-
+int lis(t_list_info *info);
 void separator(t_list_info *info_a, t_list_info *info_b, t_command_list *command_list);
-
 int insertor(t_list_info *info_a, t_list_info *info_b, t_command_list *command_list);
-
-//11_utils.c
-
-int ft_puterr(void);
-long ft_abs(long num);
-long ft_min(long a, long b);
-long ft_min_four(long a, long b, long c, long d);
-long ft_max(long a, long b);
-size_t	ft_strlen(const char *s);
-long* list_to_array(t_circ_doubly_list *head, int size);
-int return_min_dist(int idx, int total);
-
 void final_rotator(t_list_info *info, t_command_list *command_list);
 
-void   quick_sort(long array[], int left, int right);
+void    push(t_list_info *dst, t_list_info *src, t_command_list *command_list, t_commands cmd);
+void    swap(t_list_info *info, t_command_list *command_list, t_commands cmd);
+void    rotate(t_list_info *info, t_bool reverse, t_command_list *command_list, t_commands cmd);
+void    rotate_two_stack(t_list_info *info_a, t_list_info *info_b, t_command_list *command_list, t_commands cmd);
 
+void free_dp_table(long **table, int allocate);
+long **init_dp_table(int size);
+long **create_dp_table(long **dp, long *l, int size);
+void lis_restorator(long **dp, long *l, int size);
 
+void gen_score_info(t_list_info *info_a, t_list_info *info_b, t_score_info score_info[]);
+void calc_min_score(t_score_info *score_info);
+int calc_min_score_idx(t_score_info score_info[], int size);
+void set_rotate_cnt(t_score_info *score_info, int a, int b, int ab);
+void decide_rotate_cnt(t_score_info *s_info);
+
+t_circ_doubly_list *ft_lstnew(long content);
+void    sep_node(t_circ_doubly_list *node);
+void    insert_node(t_circ_doubly_list *new_node, t_circ_doubly_list *nxt_node);
 void    insert_node_tail(t_circ_doubly_list *new_node, t_circ_doubly_list *tail_node);
+void    free_all_node(t_circ_doubly_list *head);
+
+int ft_puterr(void);
+long ft_min(long a, long b);
+long ft_max(long a, long b);
+long ft_abs(long num);
+size_t	ft_strlen(const char *s);
+
+long* list_to_array(t_circ_doubly_list *head, int size);
+int find_insert_point(long *array, int size, int target);
+int find_median(t_circ_doubly_list *head, int size);
+int find_min_index(t_list_info *info);
+int return_min_dist(int idx, int total);
+
+void   quick_sort(long array[], int left, int right);
 
 #endif

@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-void command_printer(t_command_list command_list)
+static void command_printer(t_command_list command_list)
 {
     int i;
     const char *command_strings[] = {

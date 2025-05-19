@@ -32,7 +32,7 @@ static long	ft_atoi_for_pushswap(const char *str)
 	return (sign * num);
 }
 
-t_circ_doubly_list	*ft_lstmap(int argc, char *argv[])
+static t_circ_doubly_list	*ft_lstmap(int argc, char *argv[])
 {
 	t_circ_doubly_list	*head;
     t_circ_doubly_list  *curr;

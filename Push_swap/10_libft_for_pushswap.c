@@ -40,28 +40,3 @@ size_t	ft_strlen(const char *s)
 		i++;
 	return (i);
 }
-
-long* list_to_array(t_circ_doubly_list *head, int size)
-{
-    long *array;
-    int i;
-
-    array = (long *)malloc(sizeof(long) * size);
-    if (!array)
-        return (NULL);
-    i = 0;
-    while (i < size)
-    {
-        array[i++] = head->content;
-        head = head->nxt;
-    }
-    return (array);
-}
-
-int return_min_dist(int idx, int total)
-{
-    if (idx <= (total / 2))
-        return (idx);
-    else
-        return -(total - idx);
-}
