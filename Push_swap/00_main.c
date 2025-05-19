@@ -39,10 +39,7 @@ int main(int argc, char *argv[])
     {
         signal = lis(&info_a);
         if (signal == EXIT_FAILURE)
-        {
-            free_all_node(info_a.head);
-            return (ft_puterr(), 1);
-        }
+            return (free_all_node(info_a.head), ft_puterr(), 1);
         if (signal == EXIT_SORTED)  
             return (0);
         separator(&info_a, &info_b, &command_list);
