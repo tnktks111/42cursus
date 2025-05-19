@@ -1,18 +1,4 @@
-/*
-双方向循環連結リストを受取、dpでLISを捜索、lisの構成要素にフラグを立てる
-*/
-
 #include "push_swap.h"
-
-void free_dp_table(long **table, int allocate)
-{
-    int i;
-
-    i = 0;
-    while (i < allocate)
-        free(table[i++]);
-    free(table);
-}
 
 static int solve_lis_length(long *l, int size)
 {
@@ -70,6 +56,16 @@ static int start_idx_for_circular_lis(t_list_info *info)
         curr = curr->nxt;
     }
     return (j);
+}
+
+void free_dp_table(long **table, int allocate)
+{
+    int i;
+
+    i = 0;
+    while (i < allocate)
+        free(table[i++]);
+    free(table);
 }
 
 long **init_dp_table(int size)
@@ -137,7 +133,6 @@ void lis_restorator(long **dp, long *l, int size)
     }
 }
 
-//i...idx, j ... length(- 1)
 int lis(t_list_info *info)
 {
     t_circ_doubly_list *curr;

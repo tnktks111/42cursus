@@ -1,13 +1,13 @@
 #include "push_swap.h"
 
-int find_median(t_list_info *info)
+int find_median(t_circ_doubly_list *head, int size)
 {
     long *l;
     long res;
 
-    l = list_to_array(info->head, info->size);
-    quick_sort(l, 0, info->size - 1);
-    res = (l[(info->size - 1) / 2 ] + l[info->size / 2]) / 2;
+    l = list_to_array(head, size);
+    quick_sort(l, 0, size - 1);
+    res = (l[(size - 1) / 2 ] + l[size / 2]) / 2;
     free(l);
     return res;
 }
@@ -18,20 +18,14 @@ void separator(t_list_info *info_a, t_list_info *info_b, t_command_list *command
     t_bool lis_started;
 
     lis_started = False;
-    info_b->head = NULL;
-    info_b->size = 0;
-    i = info_a->size; 
+    i = info_a->size;
     while (i--)
     {
         if (!(info_a->head)->in_lis)
         {
-            if (command_list->argc > 50 && (info_b)->head && find_median(info_b) < (info_a->head)->content)
-            {
-                push(info_b, info_a, command_list, pb);
+            push(info_b, info_a, command_list, pb);
+            if (command_list->argc > 50 && find_median(info_b->head->nxt, info_b->size - 1) < (info_b->head)->content)
                 rotate(info_b, False, command_list, rb);
-            }
-            else
-                push(info_b, info_a, command_list, pb);
         }
         else
         {

@@ -35,19 +35,18 @@ int main(int argc, char *argv[])
     signal = argv_parser(argc, argv, &info_a);
     if (signal == EXIT_FAILURE)
         return (ft_puterr(), 1);
-    if (signal == EXIT_SORTED)
+    if (signal == EXIT_SORTED || info_a.size < 2)
         return (0);
-    if (info_a.size > 1)
-    {
-        signal = lis(&info_a);
-        if (signal == EXIT_FAILURE)
-            return (free_all_node(info_a.head), ft_puterr(), 1);
-        if (signal == EXIT_SORTED)  
-            return (0);
-        separator(&info_a, &info_b, &command_list);
-        if (insertor(&info_a, &info_b, &command_list) == EXIT_FAILURE)
-            return (ft_puterr(), 1);
-        final_rotator(&info_a, &command_list);
-    }
+    signal = lis(&info_a);
+    if (signal == EXIT_FAILURE)
+        return (free_all_node(info_a.head), ft_puterr(), 1);
+    if (signal == EXIT_SORTED)  
+        return (0);
+    info_b.head = NULL;
+    info_b.size = 0;
+    separator(&info_a, &info_b, &command_list);
+    if (insertor(&info_a, &info_b, &command_list) == EXIT_FAILURE)
+        return (ft_puterr(), 1);
+    final_rotator(&info_a, &command_list);
     return (command_printer(command_list), 0);
 }
