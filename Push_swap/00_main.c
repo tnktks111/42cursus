@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-int command_printer(t_command_list command_list)
+void command_printer(t_command_list command_list)
 {
     int i;
     const char *command_strings[] = {
@@ -21,7 +21,6 @@ int command_printer(t_command_list command_list)
     i = -1;
     while (++i < command_list.total)
         write(1, command_strings[command_list.array[i]], ft_strlen(command_strings[command_list.array[i]]));
-    return (0);
 }
 
 int main(int argc, char *argv[])
@@ -50,5 +49,5 @@ int main(int argc, char *argv[])
             return (ft_puterr(), 1);
         final_rotator(&info_a, &command_list);
     }
-    return (command_printer(command_list));
+    return (command_printer(command_list), 0);
 }
