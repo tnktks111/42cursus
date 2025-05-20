@@ -40,3 +40,20 @@ void   quick_sort(long array[], int left, int right)
         quick_sort(array, q + 1, right);
     }
 }
+
+long quick_select(long array[], int left, int right, int k)
+{
+    int pivot_index;
+
+    if (left == right)
+        return array[left];
+    pivot_index = partition(array, left, right);
+    if (k == pivot_index)
+    {
+        return array[k];
+    }
+    else if (k < pivot_index)
+        return quick_select(array, left, pivot_index - 1, k);
+    else
+        return quick_select(array, pivot_index + 1, right, k);
+}

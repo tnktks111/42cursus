@@ -56,13 +56,12 @@ int find_median(t_circ_doubly_list *head, int size)
     long res;
 
     l = list_to_array(head, size);
-    quick_sort(l, 0, size - 1);
-    res = (l[(size - 1) / 2 ] + l[size / 2]) / 2;
+    res = (quick_select(l, 0, size - 1, (size - 1) / 2) + quick_select(l, 0, size - 1, size / 2)) / 2;
     free(l);
     return res;
 }
 
-int find_min_index(t_list_info *info)
+int find_min_index_in_sorted_list(t_list_info *info)
 {
     t_circ_doubly_list *curr;
     int i;

@@ -88,12 +88,12 @@ long ft_max(long a, long b);
 long ft_abs(long num);
 size_t	ft_strlen(const char *s);
 
-long* list_to_array(t_circ_doubly_list *head, int size);
-int find_insert_point(long *array, int size, int target);
-int find_median(t_circ_doubly_list *head, int size);
-int find_min_index(t_list_info *info);
-int return_min_dist(int idx, int total);
+long*   list_to_array(t_circ_doubly_list *head, int size);
+int     find_insert_point(long *array, int size, int target);
+int     find_median(t_circ_doubly_list *head, int size);
+int     find_min_index_in_sorted_list(t_list_info *info);
+int     return_min_dist(int idx, int total);
 
-void   quick_sort(long array[], int left, int right);
-
+void    quick_sort(long array[], int left, int right);
+long    quick_select(long array[], int left, int right, int k);
 #endif

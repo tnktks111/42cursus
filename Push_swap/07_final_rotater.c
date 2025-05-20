@@ -4,16 +4,15 @@ void final_rotator(t_list_info *info, t_command_list *command_list)
 {
     int i;
 
-    i = find_min_index(info);
-    if (i > 0)
+    i = find_min_index_in_sorted_list(info);
+    while (i > 0)
     {
-        while (i--)
-            rotate(info, False, command_list, ra);
+        rotate(info, False, command_list, ra);
+        i--;
     }
-    else
+    while (i < 0)
     {
-        i *= -1;
-        while (i--)
-            rotate(info, True, command_list, rra);
+        rotate(info, True, command_list, rra);
+        i++;
     }
 }

@@ -23,6 +23,13 @@ static void command_printer(t_command_list command_list)
         write(1, command_strings[command_list.array[i]], ft_strlen(command_strings[command_list.array[i]]));
 }
 
+# include <time.h>
+clock_t cpu_time_start;
+clock_t cpu_time_end;
+double sec_start;
+double sec_end;
+double result_time;
+
 int main(int argc, char *argv[])
 {
     t_list_info info_a;
@@ -30,8 +37,10 @@ int main(int argc, char *argv[])
     t_command_list command_list;
     int signal;
 
+    // cpu_time_start = clock();
     command_list.argc = argc;
     command_list.total = 0;
+
     signal = argv_parser(argc, argv, &info_a);
     if (signal == EXIT_FAILURE)
         return (ft_puterr(), 1);
@@ -48,5 +57,13 @@ int main(int argc, char *argv[])
     if (insertor(&info_a, &info_b, &command_list) == EXIT_FAILURE)
         return (ft_puterr(), 1);
     final_rotator(&info_a, &command_list);
-    return (command_printer(command_list), 0);
+    command_printer(command_list);
+    // //計測終了
+    // cpu_time_end = clock();
+    // sec_end = (double)cpu_time_end/CLOCKS_PER_SEC;
+    // printf("\n終了時間 : %f\n",sec_end);
+    // //処理時間
+    // result_time = sec_end - sec_start;
+    // printf("処理時間 : %f\n",result_time);
+    return (0);
 }

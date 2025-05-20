@@ -12,7 +12,7 @@ void separator(t_list_info *info_a, t_list_info *info_b, t_command_list *command
         if (!(info_a->head)->in_lis)
         {
             push(info_b, info_a, command_list, pb);
-            if (command_list->argc > 50 && find_median(info_b->head->nxt, info_b->size - 1) < (info_b->head)->content)
+            if (command_list->argc > 50 && find_median(info_b->head->nxt, info_b->size - 1) > (info_b->head)->content)
                 rotate(info_b, False, command_list, rb);
         }
         else
