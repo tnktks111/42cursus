@@ -66,6 +66,8 @@ static t_bool contains_duplicate(t_list_info *list_a)
     int i;
 
     l_a = list_to_array(list_a->head, list_a->size);
+    if (!l_a)
+        return (True);
     quick_sort(l_a, 0, list_a->size - 1);
     i = -1;
     while (++i < list_a->size - 1)
@@ -86,6 +88,6 @@ int argv_parser(int argc, char *argv[], t_list_info *info)
         return (EXIT_FAILURE);
     info->size = argc - 1;
     if (contains_duplicate(info) == True)
-        return (EXIT_FAILURE);
+        return (free_all_node(info->head), EXIT_FAILURE);
     return (EXIT_SUCCESS);
 }

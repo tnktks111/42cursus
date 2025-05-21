@@ -46,7 +46,7 @@ static int start_idx_for_circular_lis(t_list_info *info)
         l = list_to_array(curr, info->size);
         tmp = solve_lis_length(l, info->size);
         if (i == 0 && tmp == info->size)
-            return (EXIT_SORTED);
+            return (free(l), EXIT_SORTED);
         if (tmp > max)
         {
             max = tmp;
@@ -72,7 +72,7 @@ int lis(t_list_info *info)
     l = list_to_array(curr, info->size);
     dp = init_dp_table(info->size);
     if (!dp)
-        return (EXIT_FAILURE);
+        return (free(l), free_all_node(info->head), EXIT_FAILURE);
     create_dp_table(dp, l, info->size);
     lis_restorator(dp, l, info->size);
     i = 0;

@@ -50,13 +50,13 @@ int find_insert_point(long *array, int size, int target)
     return (right);
 }
 
-int find_median(t_circ_doubly_list *head, int size)
+int find_chunk_point(t_circ_doubly_list *head, int size)
 {
     long *l;
     long res;
 
     l = list_to_array(head, size);
-    res = (quick_select(l, 0, size - 1, (size - 1) / 2) + quick_select(l, 0, size - 1, size / 2)) / 2;
+    res = quick_select(l, 0, size - 1, (size - 1) * 3 / 5);
     free(l);
     return res;
 }
