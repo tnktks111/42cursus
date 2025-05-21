@@ -6,11 +6,11 @@
 /*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 22:29:18 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/05/06 11:50:55 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/05/21 16:07:42 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "../inc/get_next_line.h"
 
 int	ft_getc(t_buf_node *node)
 {

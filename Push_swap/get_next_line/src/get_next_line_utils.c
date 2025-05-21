@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/05 22:29:15 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/05/21 10:49:37 by ttanaka          ###   ########.fr       */
+/*   Created: 2025/05/05 22:29:12 by ttanaka           #+#    #+#             */
+/*   Updated: 2025/05/21 16:07:34 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "../inc/get_next_line.h"
 
 void	ft_bzero(void *s, size_t n)
 {
@@ -60,7 +60,7 @@ t_buf_node	*create_buf_node(int fd)
 	t_buf_node	*newnode;
 	t_buf		*buf;
 
-	newnode = (sizeof(t_buf_node));
+	newnode = malloc(sizeof(t_buf_node));
 	if (!newnode)
 		return (NULL);
 	newnode->fd = fd;
@@ -91,7 +91,7 @@ char	*adjust_string(t_string *res)
 			free(res->str);
 		return (NULL);
 	}
-	final_res = (char *)(sizeof(char) * (res->len) + 1);
+	final_res = (char *)malloc(sizeof(char) * (res->len) + 1);
 	if (!final_res)
 	{
 		if (res->str)
