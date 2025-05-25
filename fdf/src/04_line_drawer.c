@@ -22,6 +22,11 @@ void plot(t_env *env, int x, int y, int z, int rgb, double brightness)
     }
 }
 
+// void bresenham(t_env *env, t_mappoint p0, t_mappoint p1)
+// {
+    
+// }
+
 void xiaolin_wu(t_env *env, t_mappoint p0, t_mappoint p1)
 {
     t_bool steep;
