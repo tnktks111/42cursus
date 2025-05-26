@@ -8,10 +8,12 @@
 #include <fcntl.h>
 #include <stdint.h>
 
+#define START_FILE_PATH "xpm/start_display_0.xpm"
 #define XPM_FILE_PATH "xpm/menu2.xpm"
 
 #define FORMAT_ERR -4
 
+#define BACKGROUND 0x4D5F8D
 #define W_WIDTH 800
 #define W_HEIGHT 600
 #define MOUSE_CLICK_LEFT 1
@@ -21,6 +23,7 @@
 #define MOUSE_SCROLL_DOWN 5
 #define SPACE 49
 #define ESCAPE 53
+#define ENTER 36
 #define TAB 48
 #define K_W 13
 #define K_A 0
@@ -105,13 +108,17 @@ typedef struct s_env
     t_quaternion v_curr;
     t_quaternion rot;
     t_bool is_dragging;
+    t_bool start;
     t_bool display_menu;
     t_mode mode;
     void *mlx_ptr;
     void *win_ptr;
     void *img;
     char *addr;
+    void *start_xpm;
     void *menu_xpm;
+    int start_img_height;
+    int start_img_width;
     int menu_img_height;
     int menu_img_width; 
     int *elevation_map;
@@ -133,6 +140,7 @@ void calc_mapsize(t_env *env, double vessel[3][2]);
 void adjust_offset(t_env *env);
 void readjust_offset(t_env *env);
 
+void fill_background(t_env *env, int color);
 void plot(t_env *env, t_point p, double brightness, t_bool reversed);
 void xiaolin_wu(t_env *env, t_mappoint p0, t_mappoint p1, t_bool reversed);
 void line_drawer(t_env *env);

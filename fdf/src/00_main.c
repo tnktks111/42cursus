@@ -39,6 +39,9 @@ void mlx_handler(t_env *env)
     if (!env->elevation_map)
         return ;
     hook_handler(env);
-    line_drawer(env);
+    env->start_xpm = mlx_xpm_file_to_image(env->mlx_ptr, START_FILE_PATH, &env->start_img_width, &env->start_img_height);
+    env->display_menu = True;
+    env->start = True;
+    mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, env->start_xpm, 0, 0);
     mlx_loop(env->mlx_ptr);
 };

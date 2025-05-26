@@ -22,7 +22,7 @@ void redraw_line_after_rotation(t_quaternion rot, t_env *env)
     }
     readjust_offset(env);
     ft_init_int_buffer(env->elevation_map, W_WIDTH * W_HEIGHT);
-    ft_bzero(env->addr, W_HEIGHT * env->line_length);
+    fill_background(env, BACKGROUND);
     vertical_line_drawer(env);
     horizontal_line_drawer(env);
     mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, env->img, 0, 0);
@@ -33,8 +33,8 @@ void redraw_line_after_rotation(t_quaternion rot, t_env *env)
 
 void redraw_line_after_translation(t_env *env)
 {
-    ft_bzero(env->addr, W_HEIGHT * env->line_length);
     ft_init_int_buffer(env->elevation_map, W_WIDTH * W_HEIGHT);
+    fill_background(env, BACKGROUND);
     vertical_line_drawer(env);
     horizontal_line_drawer(env);
     mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, env->img, 0, 0);
@@ -45,8 +45,8 @@ void redraw_line_after_translation(t_env *env)
 
 void redraw_line_after_tab(t_env *env)
 {
-    ft_bzero(env->addr, W_HEIGHT * env->line_length);
     ft_init_int_buffer(env->elevation_map, W_WIDTH * W_HEIGHT);
+    fill_background(env, BACKGROUND);
     vertical_line_drawer(env);
     horizontal_line_drawer(env);
     mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, env->img, 0, 0);
@@ -58,8 +58,8 @@ void redraw_line_after_tab(t_env *env)
 void redraw_line_after_zoom(t_env *env)
 {
     readjust_offset(env);
-    ft_bzero(env->addr, W_HEIGHT * env->line_length);
     ft_init_int_buffer(env->elevation_map, W_WIDTH * W_HEIGHT);
+    fill_background(env, BACKGROUND);
     vertical_line_drawer(env);
     horizontal_line_drawer(env);
     mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, env->img, 0, 0);
@@ -80,8 +80,8 @@ void reset_view(t_env *env)
         while (++j < env->m_width)
             env->map[i][j].va = rot_based_on_view_mode(env->map[i][j].a, env);
     }
-    ft_bzero(env->addr, W_HEIGHT * env->line_length);
     ft_init_int_buffer(env->elevation_map, W_WIDTH * W_HEIGHT);
+    fill_background(env, BACKGROUND);
     adjust_offset(env);
     vertical_line_drawer(env);
     horizontal_line_drawer(env);

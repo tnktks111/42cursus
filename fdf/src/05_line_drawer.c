@@ -1,5 +1,6 @@
 #include "fdf.h"
 
+void fill_background(t_env *env, int color);
 void plot(t_env *env, t_point p, double brightness, t_bool reversed);
 t_point gen_point(int x, int y, int z, int color);
 void plot_edge(t_env *env, t_draw_var *info, t_mappoint p, t_bool is_start);
@@ -8,6 +9,25 @@ void xiaolin_wu(t_env *env, t_mappoint p0, t_mappoint p1, t_bool reversed);
 void line_drawer(t_env *env);
 void vertical_line_drawer(t_env *env);
 void horizontal_line_drawer(t_env *env);
+
+
+void fill_background(t_env *env, int color)
+{
+    int x;
+    int y;
+    char *pixel_destination;
+
+    y = -1;
+    while (++y < W_HEIGHT)
+    {
+        x = -1;
+        while (++x < W_WIDTH)
+        {
+            pixel_destination = env->addr + (y * env->line_length) + (x * (env->bits_per_pixel / 8));
+            *(unsigned int*)pixel_destination = color;
+        }
+    }
+}
 
 void plot(t_env *env, t_point p, double brightness, t_bool reversed)
 {
@@ -116,6 +136,7 @@ void line_drawer(t_env *env)
 {
     ft_bzero(env->addr, W_HEIGHT * env->line_length);
     ft_init_int_buffer(env->elevation_map, W_WIDTH * W_HEIGHT);
+    fill_background(env, BACKGROUND);
     vertical_line_drawer(env);
     horizontal_line_drawer(env);
     env->menu_xpm = mlx_xpm_file_to_image(env->mlx_ptr, XPM_FILE_PATH, &env->menu_img_width, &env->menu_img_height);
