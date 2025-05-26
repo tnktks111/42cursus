@@ -110,6 +110,8 @@ void xiaolin_wu(t_env *env, t_mappoint p0, t_mappoint p1, t_bool reversed)
 {
     t_draw_var info;
 
+    if ((p0.va.x < 0 || p0.va.x >= W_WIDTH || p0.va.y < 0 || p0.va.y >= W_HEIGHT) && (p1.va.x < 0 || p1.va.x >= W_WIDTH || p1.va.y < 0 || p1.va.y >= W_HEIGHT))
+        return;
     info.reversed = reversed;
     info.start = p0;
     info.end = p1;
