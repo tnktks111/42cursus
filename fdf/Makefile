@@ -24,14 +24,19 @@ SRCS_FILES_FDF = \
     01_parser.c \
     02_parser_helper.c \
 	03_calculator.c \
-    04_line_drawer.c \
-    05_hook_handler.c \
-	06_mouse.c \
-	08_translation.c \
-	09_redraw_and_reset.c \
-    10_quaternion_utils.c \
-	11_quaternion_utils2.c \
-    12_color.c \
+	04_xiaolin_wu.c \
+    05_line_drawer.c \
+    06_hook_handler.c \
+	07_menu.c \
+	08_mouse.c \
+	09_translation.c \
+	10_redraw_and_reset.c \
+	11_switch_view.c \
+    17_quaternion_utils.c \
+	17_quaternion_utils2.c \
+    18_color.c \
+	18_color2.c \
+	19_init.c \
 	20_free.c
 
 SRCS_FDF = $(addprefix $(SRC_DIR_FDF)/, $(SRCS_FILES_FDF))

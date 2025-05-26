@@ -12,6 +12,7 @@ void hook_handler(t_env *env)
     mlx_hook(env->win_ptr, 4, 0, handle_button_press, env);
     mlx_hook(env->win_ptr, 5, 0, handle_button_release, env);
     mlx_hook(env->win_ptr, 6, 0, handle_mouse_motion, env);
+    mlx_hook(env->win_ptr, 17, 0, close_window, env);
 }
 
 int key_button_press(int key, void *param_env)
@@ -21,13 +22,16 @@ int key_button_press(int key, void *param_env)
     env = (t_env *)param_env;
     if (key == ESCAPE)
         close_window(env);
-    if (key == UP_ARROW || key == DOWN_ARROW || key == LEFT_ARROW || key == RIGHT_ARROW)
+    if (key == K_W || key == K_A || key == K_S || key == K_D)
         translate_view(key, env);
     if (key == K_R)
         reset_view(env);
+    if (key == TAB)
+        switch_menu_frag(env);
+    if (key == SPACE)
+        switch_view(env);
     return (0);
 }
-
 
 int handle_button_press(int button, int x, int y, void *param_env)
 {

@@ -42,11 +42,3 @@ double vector_inner_product(t_quaternion p, t_quaternion q)
         return (-1);
     return (inner_product);
 }
-
-
-
-
-
-
-
-

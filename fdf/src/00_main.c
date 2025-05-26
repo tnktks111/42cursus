@@ -6,6 +6,7 @@ int main(int argc, char *argv[])
 {
     t_env env;
 
+    env.mode = Iso;
     if (parser(argc, argv[1], &env) == EXIT_FAILURE)
         return (1);
     mlx_handler(&env);
@@ -14,6 +15,7 @@ int main(int argc, char *argv[])
 
 void mlx_handler(t_env *env)
 {
+    init_environment(env);
     env->mlx_ptr = mlx_init();
     if (!env->mlx_ptr)
     {

@@ -6,6 +6,9 @@ t_quaternion quaternion_conjugate(t_quaternion q);
 t_quaternion quaternion_product(t_quaternion q, t_quaternion p);
 void quaternion_product_in_place(t_quaternion *p, t_quaternion rot);
 t_quaternion rot_isometric(t_quaternion p, t_env *env);
+t_quaternion rot_yz(t_quaternion p, t_env *env);
+t_quaternion rot_zx(t_quaternion p, t_env *env);
+t_quaternion rot_based_on_view_mode(t_quaternion p, t_env *env);
 
 t_quaternion set_quaternion(double w, double x, double y, double z)
 {
@@ -75,4 +78,49 @@ t_quaternion rot_isometric(t_quaternion p, t_env *env)
     q_total_rotation_conj = quaternion_conjugate(env->rot);
     tmp_prod = quaternion_product(env->rot, p);
     return (quaternion_product(tmp_prod, q_total_rotation_conj));
+}
+
+/*
+sin 45° = cos 45° = 0.70710678118
+*/
+
+t_quaternion rot_yz(t_quaternion p, t_env *env)
+{
+    static t_quaternion q_rot_y_90 = {0.707106, 0, 0.707106, 0};
+    static t_quaternion q_rot_z_90 = {0.707106, 0, 0, -0.707106};
+
+    t_quaternion q_total_rotation_conj;
+    t_quaternion tmp_prod;
+
+    env->rot = quaternion_product(q_rot_z_90, q_rot_y_90);
+    q_total_rotation_conj = quaternion_conjugate(env->rot);
+    tmp_prod = quaternion_product(env->rot, p);
+    return (quaternion_product(tmp_prod, q_total_rotation_conj));
+}
+
+t_quaternion rot_zx(t_quaternion p, t_env *env)
+{
+    static t_quaternion q_rot_x_90 = {0.707106, 0.707106, 0, 0};
+    static t_quaternion q_rot_x_90_conj = {0.707106, -0.707106, 0, 0};
+
+    t_quaternion tmp_prod;
+
+    env->rot = q_rot_x_90;
+    tmp_prod = quaternion_product(env->rot, p);
+    return (quaternion_product(tmp_prod, q_rot_x_90_conj));
+}
+
+t_quaternion rot_based_on_view_mode(t_quaternion p, t_env *env)
+{
+    if (env->mode == Iso)
+        return (rot_isometric(p, env));
+    if (env->mode == YZ)
+        return (rot_yz(p, env));
+    if (env->mode == ZX)
+        return (rot_zx(p, env));
+    else
+    {
+        env->rot = set_quaternion(0, 0, 0, 0);
+        return (p);
+    }
 }

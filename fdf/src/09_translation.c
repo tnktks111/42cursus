@@ -4,13 +4,13 @@ int translate_view(int key, t_env *env);
 
 int translate_view(int key, t_env *env)
 {
-    if (key == UP_ARROW)
+    if (key == K_W)
         env->user_offset_y += 10;
-    if (key == DOWN_ARROW)
+    if (key == K_S)
         env->user_offset_y -= 10;
-    if (key == LEFT_ARROW)
+    if (key == K_A)
         env->user_offset_x += 10;
-    if (key == RIGHT_ARROW)
+    if (key == K_D)
         env->user_offset_x -= 10;
     redraw_line_after_translation(env);
     return (0);
