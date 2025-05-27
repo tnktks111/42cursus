@@ -121,7 +121,7 @@ void xiaolin_wu(t_env *env, t_mappoint p0, t_mappoint p1, t_bool reversed)
     }
     if (p0.va.x > p1.va.x)
         return (xiaolin_wu(env, p1, p0, reversed));
-    if (ft_db_max(p0.va.x, p1.va.x) < 0 || ft_db_min(p0.va.x, p1.va.x) > ft_max(W_WIDTH, W_HEIGHT) || ft_db_max(p0.va.y, p1.va.y) < 0 || ft_db_min(p0.va.y, p1.va.y) > ft_max(W_WIDTH, W_HEIGHT))
+    if (ft_db_max(p0.va.x, p1.va.x) < 0 || ft_db_max(p0.va.y, p1.va.y) < 0 || ((reversed == False && (ft_db_min(p0.va.x, p1.va.x)> W_WIDTH || ft_db_min(p0.va.y, p1.va.y) > W_HEIGHT)) || (reversed == True && (ft_db_min(p0.va.x, p1.va.x)> W_HEIGHT || ft_db_min(p0.va.y, p1.va.y) > W_WIDTH))))
         return ;
     info.dx = p1.va.x - p0.va.x;
     info.dy = p1.va.y - p0.va.y;
