@@ -9,7 +9,7 @@
 #include <stdint.h>
 
 #define START_FILE_PATH "xpm/start_display.xpm"
-#define XPM_FILE_PATH "xpm/menu2.xpm"
+#define XPM_FILE_PATH "xpm/menu.xpm"
 
 #define FORMAT_ERR -4
 

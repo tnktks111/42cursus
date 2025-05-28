@@ -145,7 +145,7 @@ void line_drawer(t_env *env)
     mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, env->img, 0, 0);
     env->display_menu = True;
     if (env->display_menu == True)
-        mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, env->menu_xpm, 0, 0);
+        mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, env->menu_xpm, 10, 10);
 }
 
 void vertical_line_drawer(t_env *env)

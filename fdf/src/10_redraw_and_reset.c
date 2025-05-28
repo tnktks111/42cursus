@@ -27,7 +27,7 @@ void redraw_line_after_rotation(t_quaternion rot, t_env *env)
     horizontal_line_drawer(env);
     mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, env->img, 0, 0);
     if (env->display_menu == True)
-        mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, env->menu_xpm, 0, 0);
+        mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, env->menu_xpm, 10, 10);
     mlx_do_sync(env->mlx_ptr);
 }
 
@@ -39,7 +39,7 @@ void redraw_line_after_translation(t_env *env)
     horizontal_line_drawer(env);
     mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, env->img, 0, 0);
     if (env->display_menu == True)
-        mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, env->menu_xpm, 0, 0);
+        mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, env->menu_xpm, 10, 10);
     mlx_do_sync(env->mlx_ptr);
 }
 
@@ -51,7 +51,7 @@ void redraw_line_after_tab(t_env *env)
     horizontal_line_drawer(env);
     mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, env->img, 0, 0);
     if (env->display_menu == True)
-        mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, env->menu_xpm, 0, 0);
+        mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, env->menu_xpm, 10, 10);
     mlx_do_sync(env->mlx_ptr);
 }
 
@@ -64,7 +64,7 @@ void redraw_line_after_zoom(t_env *env)
     horizontal_line_drawer(env);
     mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, env->img, 0, 0);
     if (env->display_menu == True)
-        mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, env->menu_xpm, 0, 0);
+        mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, env->menu_xpm, 10, 10);
     mlx_do_sync(env->mlx_ptr);
 }
 
@@ -87,6 +87,6 @@ void reset_view(t_env *env)
     horizontal_line_drawer(env);
     mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, env->img, 0, 0);
     if (env->display_menu == True)
-        mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, env->menu_xpm, 0, 0);
+        mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, env->menu_xpm, 10, 10);
     mlx_do_sync(env->mlx_ptr);
 }
