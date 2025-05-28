@@ -6,7 +6,7 @@
 /*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 22:29:18 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/05/24 16:43:27 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/05/28 20:15:36 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	ft_get_and_put_c(t_buf_node *node, t_string *res)
 				free(res->str);
 			return (0);
 		}
-		if (c == EOF || c == '\n')
+		if (c == EOF)
 			return (1);
 		if (ft_putc(res, (char)c) == MALLOC_ERR)
 		{
@@ -109,6 +109,8 @@ int	ft_get_and_put_c(t_buf_node *node, t_string *res)
 				free(res->str);
 			return (0);
 		}
+		if ((char)c == '\n')
+			return (1);
 	}
 }
 

@@ -2,7 +2,7 @@
 static char *menu[] = {
 /* columns rows colors chars-per-pixel */
 "300 225 256 2 ",
-"   c none",
+"   c None",
 ".  c #010101",
 "X  c #020202",
 "o  c #030303",

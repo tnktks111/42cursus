@@ -6,14 +6,13 @@
 /*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 13:23:09 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/05/24 16:21:07 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/05/28 21:13:41 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/libft_for_fdf.h"
 
 long	ft_atoi_for_fdf(const char *str);
-
 
 long	ft_atoi_for_fdf(const char *str)
 {
@@ -41,5 +40,3 @@ long	ft_atoi_for_fdf(const char *str)
 		return (LONG_MAX);
 	return (sign * num);
 }
-
-

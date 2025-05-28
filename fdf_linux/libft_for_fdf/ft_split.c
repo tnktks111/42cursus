@@ -6,7 +6,7 @@
 /*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 13:24:15 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/05/24 19:22:05 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/05/28 21:14:09 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	ft_count(char const *s, char c);
 static char	*word_splitter(char const *s, char c);
 static char	**free_and_fail(char **words, int allocated_count);
-char	**ft_split(char const *s, char c);
+char		**ft_split(char const *s, char c);
 
 static int	ft_count(char const *s, char c)
 {
@@ -40,7 +40,7 @@ static int	ft_count(char const *s, char c)
 
 static char	*word_splitter(char const *s, char c)
 {
-	int	i;
+	int		i;
 	char	*word;
 
 	i = 0;
@@ -72,9 +72,9 @@ static char	**free_and_fail(char **words, int allocated_count)
 
 char	**ft_split(char const *s, char c)
 {
-	int	i;
-	int	j;
-	int	len;
+	int		i;
+	int		j;
+	int		len;
 	char	**words;
 
 	len = ft_count(s, c);

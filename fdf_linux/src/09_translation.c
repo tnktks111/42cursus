@@ -1,17 +1,29 @@
-#include "fdf.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   09_translation.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/28 17:27:32 by ttanaka           #+#    #+#             */
+/*   Updated: 2025/05/28 17:55:02 by ttanaka          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int translate_view(int key, t_env *env);
+#include "../inc/fdf.h"
 
-int translate_view(int key, t_env *env)
+int	translate_view(int key, t_env *env);
+
+int	translate_view(int key, t_env *env)
 {
-    if (key == K_W)
-        env->user_offset_y += 10;
-    if (key == K_S)
-        env->user_offset_y -= 10;
-    if (key == K_A)
-        env->user_offset_x += 10;
-    if (key == K_D)
-        env->user_offset_x -= 10;
-    redraw_line_after_translation(env);
-    return (0);
+	if (key == K_W)
+		env->user_offset_y += 10;
+	if (key == K_S)
+		env->user_offset_y -= 10;
+	if (key == K_A)
+		env->user_offset_x += 10;
+	if (key == K_D)
+		env->user_offset_x -= 10;
+	redraw_line_after_translation(env);
+	return (0);
 }

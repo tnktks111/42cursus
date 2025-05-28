@@ -1,6 +1,19 @@
-#include "fdf.h"
-void switch_view(t_env *env)
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   11_switch_view.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/28 17:27:37 by ttanaka           #+#    #+#             */
+/*   Updated: 2025/05/28 17:55:10 by ttanaka          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../inc/fdf.h"
+
+void	switch_view(t_env *env)
 {
-    env->mode = (env->mode + 1) % 4;
-    reset_view(env);
+	env->mode = (env->mode + 1) % 4;
+	reset_view(env);
 }

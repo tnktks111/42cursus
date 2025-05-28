@@ -6,7 +6,7 @@
 /*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 22:29:18 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/05/21 16:07:42 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/05/28 17:15:41 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	ft_putc(t_string *str, char c)
 	}
 	else if (str->len >= str->cap)
 	{
-		newstr = malloc(str->cap * 2);
+		newstr = (str->cap * 2);
 		if (!newstr)
 			return (MALLOC_ERR);
 		ft_bzero(newstr, str->cap * 2);

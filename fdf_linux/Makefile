@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/05/28 21:16:59 by ttanaka           #+#    #+#              #
+#    Updated: 2025/05/28 21:17:20 by ttanaka          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
@@ -31,12 +43,15 @@ SRCS_FILES_FDF = \
     09_translation.c \
     10_redraw_and_reset.c \
     11_switch_view.c \
-    17_quaternion_utils.c \
-    17_quaternion_utils2.c \
-    18_color.c \
-    18_color2.c \
-    19_init.c \
-    20_free.c
+	12_quaternion_utils.c \
+	13_quaternion_utils2.c \
+    14_quaternion_utils3.c \
+	15_color.c \
+    16_color2.c \
+    17_error.c \
+	18_init.c \
+    19_free.c \
+	20_utils.c
 
 SRCS_FDF = $(addprefix $(SRC_DIR_FDF)/, $(SRCS_FILES_FDF))
 OBJS_FDF = $(patsubst $(SRC_DIR_FDF)/%.c,$(OBJ_DIR_FDF)/%.o,$(SRCS_FDF))
@@ -62,6 +77,7 @@ SRCS_FILES_LIBFT = \
     ft_bzero.c \
     ft_init_int_buffer.c \
     ft_math_double.c \
+	ft_math_double2.c \
     ft_math_int.c \
     ft_put_fd.c \
     ft_split.c \
