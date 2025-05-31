@@ -1,10 +1,33 @@
 #include "pipex.h"
 int exec_n_commands(int argc, char *argv[], t_info *info);
 
+void close_all(int *fd, int size)
+{
+    int i;
+
+    i = -1;
+    while(++i < size)
+        close(fd[i]);
+}
+
+void close_expect_used_pipe(int **fd, int idx, int size)
+{
+    int i;
+
+    i = -1;
+    while (++i < size)
+    {
+        if (i != idx - 1)
+            close(fd[i][0]);
+        if (i != idx)
+            close(fd[i][1]);
+    }
+}
+
 int exec_n_commands(int argc, char *argv[], t_info *info)
 {
     pid_t *pid;
-    int *fd;
+    int **fd;
     int *status;
     int i;
     int j;
@@ -12,38 +35,44 @@ int exec_n_commands(int argc, char *argv[], t_info *info)
     char *command_path;
     char *err_msg;
     int n;
+    int stdin_fd;
+    int stdout_fd;
 
     n = argc - 3;
-    pid = (pid_t*)malloc(sizeof(pid_t) * (2 * n));
+    pid = (pid_t*)malloc(sizeof(pid_t) * n);
     if (!pid)
         return (EXIT_FAILURE);
-    fd = (int*)malloc(sizeof(int) * (2 * n));
+    fd = (int**)malloc(sizeof(int*) * (n - 1));
     i = -1;
-    fd[2 * n - 1] = info->in_fd;
-    fd[0] = info->out_fd;
-    while (++i < n)
+    while (++i < n - 1)
     {
-        if (pipe(&fd[2 * i + 1]) == -1)
+        fd[i] = (int*)malloc(sizeof(int) * 2);
+        if (pipe(fd[i]) == -1)
         {
             perror("pipe");
             exit(EXIT_FAILURE);
         }
     }
-    status = (int *)malloc(sizeof(int) * (2 * n));
+    status = (int *)malloc(sizeof(int) * n);
     i = -1;
     while (++i < n)
     {
         pid[i] = fork();
         if (pid[i] == 0)
         {
-            if (i != 0)
-                close(fd[2 * n - 2 * i]);
-            if (i != n - 1)
-                close(fd[2 * n - 3 - 2 * i]);
-            dup2(fd[2 * n - 1 - 2 * i], STDIN_FILENO);
-            dup2(fd[2 * n - 2 - 2 * i], STDOUT_FILENO);
-            close(fd[2 * n - 1 - 2 * i]);
-            close(fd[2 * n - 2 - 2 * i]);
+            if (i == 0)
+                stdin_fd = info->in_fd;
+            else
+                stdin_fd = fd[i - 1][0];
+            if (i == n - 1)
+                stdout_fd = info->out_fd;
+            else
+                stdout_fd = fd[i][1];
+            close_expect_used_pipe(fd, i, n - 1);
+            dup2(stdin_fd, STDIN_FILENO);
+            dup2(stdout_fd, STDOUT_FILENO);
+            close(stdin_fd);
+            close(stdout_fd);
             command_elems = ft_split(argv[i + 2], ' ');
             j = -1;
             while (info->command_path_prefixs[++j])
@@ -65,11 +94,14 @@ int exec_n_commands(int argc, char *argv[], t_info *info)
         }
     }
     i = -1;
-    while (++i < n)
+    while (++i < n - 1)
     {
-        close(fd[2 * i]);
-        close(fd[2 * i + 1]);
+        close(fd[i][0]);
+        close(fd[i][1]);
         waitpid(pid[i], &status[i], 0);
     }
+    free(pid);
+    free(fd);
+    free(status);
     return (EXIT_SUCCESS);
 }
