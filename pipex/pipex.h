@@ -20,6 +20,7 @@ typedef struct s_info
     int in_fd;
     int out_fd;
     t_bool is_valid_infile;
+	t_bool is_valid_outfile;
     char **command_path_prefixs;
 } t_info;
 
@@ -35,5 +36,6 @@ void file_parser(char *infile, char *outfile, t_info *info);
 void init_info(t_info *info);
 
 int exec_commands(char *command1, char *command2, t_info *info);
+int exec_n_commands(int argc, char *argv[], t_info *info);
 
 #endif

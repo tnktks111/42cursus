@@ -13,4 +13,14 @@ void file_parser(char *infile, char *outfile, t_info *info)
         perror(err_head);
         free(err_head);
     }
+	if (info->out_fd == -1)
+	{
+		if (access(outfile, W_OK) == -1)
+		{
+			info->is_valid_outfile = False;
+			err_head = gen_errmsg_head(info->shell_name, outfile);
+			perror(err_head);
+			free(err_head);
+		}
+	}
 }
