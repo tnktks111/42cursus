@@ -6,7 +6,7 @@
 #    By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/29 10:36:24 by ttanaka           #+#    #+#              #
-#    Updated: 2025/05/30 18:55:58 by ttanaka          ###   ########.fr        #
+#    Updated: 2025/05/31 11:59:15 by ttanaka          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ bonus: $(BONUS_MARKER)
 
 clean:
 	rm -rf $(OBJS_DIR)
-	rm $(BONUS_MARKER)
+	rm -f $(BONUS_MARKER)
 
 fclean: clean
 	rm -f $(NAME)
