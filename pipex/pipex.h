@@ -22,7 +22,15 @@ typedef struct s_info
     t_bool is_valid_infile;
 	t_bool is_valid_outfile;
     char **command_path_prefixs;
+	char *argv[];
 } t_info;
+
+typedef struct s_process
+{
+	pid_t *pid;
+	int **fd;
+	int *status;
+} t_process;
 
 char *ft_getenv(const char *varname);
 char *get_last_section(char *path);
@@ -35,7 +43,6 @@ void file_parser(char *infile, char *outfile, t_info *info);
 
 void init_info(t_info *info);
 
-int exec_commands(char *command1, char *command2, t_info *info);
 int exec_n_commands(int argc, char *argv[], t_info *info);
 
 #endif
