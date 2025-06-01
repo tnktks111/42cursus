@@ -1,5 +1,5 @@
 #include "pipex.h"
-int exec_n_commands(int argc, char *argv[], t_info *info);
+int exec_n_commands(char *argv[], t_info *info);
 
 void close_all(int *fd, int size)
 {
@@ -24,6 +24,37 @@ void close_except_used_pipe(int **fd, int idx, int size)
     }
 }
 
+int exec_heredoc_process(int out_fd, t_info *info)
+{
+	char *s;
+	char *limiter_and_linebreak;
+	int lim_len;
+
+	limiter_and_linebreak = ft_strjoin(info->limiter, "\n");
+	if (!limiter_and_linebreak)
+		return (EXIT_FAILURE);
+	lim_len = ft_strlen(limiter_and_linebreak);
+	ft_putstr_fd("> ", STDOUT_FILENO);
+	s = get_next_line(STDIN_FILENO);
+	while (s)
+	{
+		if (ft_strncmp(s, limiter_and_linebreak, lim_len) == 0)
+		{
+			free(limiter_and_linebreak);
+			free(s);
+			exit(EXIT_SUCCESS);
+		}
+		ft_putstr_fd(s, out_fd);
+		free(s);
+		ft_putstr_fd("> ", STDOUT_FILENO);
+		s = get_next_line(STDIN_FILENO);
+	}
+	free(limiter_and_linebreak);
+	ft_putstr_fd(info->shell_name, STDOUT_FILENO);
+	ft_putendl_fd(": warning: here-document delimited by end-of-file", STDOUT_FILENO);
+	return (EXIT_FAILURE);
+}
+
 int exec_child_process(int stdin_fd, int stdout_fd, char *cmd, t_info *info)
 {
     char **command_elems;
@@ -31,6 +62,8 @@ int exec_child_process(int stdin_fd, int stdout_fd, char *cmd, t_info *info)
     char *err_msg;
     int i;
 
+	if (info->here_doc == True)
+		waitpid(info->process.pid[0], &(info->process.status[0]), 0);
     dup2(stdin_fd, STDIN_FILENO);
     dup2(stdout_fd, STDOUT_FILENO);
     close(stdin_fd);
@@ -55,20 +88,22 @@ int exec_child_process(int stdin_fd, int stdout_fd, char *cmd, t_info *info)
     exit(127);
 }
 
-void finish_processes(t_process *process, int size)
+void finish_processes(t_info *info)
 {
     int i;
 
     i = -1;
-    while (++i < size - 1)
+    while (++i < info->size - 1)
     {
-        close(process->fd[i][0]);
-        close(process->fd[i][1]);
-        waitpid(process->pid[i], &(process->status[i]), 0);
+        close(info->process.fd[i][0]);
+        close(info->process.fd[i][1]);
     }
-    free(process->pid);
-    free(process->fd);
-    free(process->status);
+	i = -1;
+	while (++i < info->size)
+		waitpid(info->process.pid[i], &(info->process.status[i]), 0);
+    free(info->process.pid);
+    free(info->process.fd);
+    free(info->process.status);
 }
 
 int init_process(t_process *process, int size)
@@ -99,30 +134,29 @@ int init_process(t_process *process, int size)
     return (EXIT_SUCCESS);
 }
 
-int exec_n_commands(int argc, char *argv[], t_info *info)
+int exec_n_commands(char *argv[], t_info *info)
 {
-    t_process process;
     int i;
-    int n;
 
-    n = argc - 3;
-    if (init_process(&process, n) == EXIT_FAILURE)
+    if (init_process(&info->process, info->size) == EXIT_FAILURE)
         return (EXIT_FAILURE);
     i = -1;
-    while (++i < n)
+    while (++i < info->size)
     {
-        process.pid[i] = fork();
-        if (process.pid[i] == 0)
+        info->process.pid[i] = fork();
+        if (info->process.pid[i] == 0)
         {
-            close_except_used_pipe(process.fd, i, n - 1);
-            if (i == 0)
-                exec_child_process(info->in_fd, process.fd[0][1], argv[2], info);
-            else if (i == n - 1)
-                exec_child_process(process.fd[n - 2][0], info->out_fd, argv[n + 1], info);
+            close_except_used_pipe(info->process.fd, i, info->size - 1);
+            if (i == 0 && info->here_doc == True)
+				exec_heredoc_process(info->process.fd[0][1], info);
+			else if (i == 0)
+                exec_child_process(info->in_fd, info->process.fd[i][1], argv[i + 2], info);
+            else if (i == info->size - 1)
+                exec_child_process(info->process.fd[i - 1][0], info->out_fd, argv[i + 2], info);
             else
-                exec_child_process(process.fd[i - 1][0], process.fd[i][1], argv[i + 2], info);
+                exec_child_process(info->process.fd[i - 1][0], info->process.fd[i][1], argv[i + 2], info);
         }
     }
-    finish_processes(&process, n);
+    finish_processes(info);
     return (EXIT_SUCCESS);
 }

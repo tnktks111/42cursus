@@ -1,9 +1,13 @@
 #include "pipex.h"
+
 void file_parser(char *infile, char *outfile, t_info *info);
 
 void file_parser(char *infile, char *outfile, t_info *info)
 {
     char *err_head;
+
+	if (info->here_doc == True)
+		return;
     info->in_fd = open(infile, O_RDONLY);
     info->out_fd = open(outfile, O_WRONLY | O_TRUNC | O_CREAT, 0644);
     if (info->in_fd == -1)
