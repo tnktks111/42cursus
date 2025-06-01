@@ -50,9 +50,9 @@ int exec_heredoc_process(int out_fd, t_info *info)
 		s = get_next_line(STDIN_FILENO);
 	}
 	free(limiter_and_linebreak);
-	ft_putstr_fd(info->shell_name, STDOUT_FILENO);
-	ft_putendl_fd(": warning: here-document delimited by end-of-file", STDOUT_FILENO);
-	return (EXIT_FAILURE);
+	ft_putstr_fd(info->shell_name, STDERR_FILENO);
+	ft_putendl_fd(": warning: here-document delimited by end-of-file", STDERR_FILENO);
+	exit(EXIT_FAILURE);
 }
 
 int exec_child_process(int stdin_fd, int stdout_fd, char *cmd, t_info *info)
