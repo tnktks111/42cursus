@@ -1,4 +1,4 @@
-#include "pipex.h"
+#include "../inc/pipex.h"
 
 char *gen_errmsg_head(char *shell, char *nxtarg);
 char *gen_command_path(char *prefix, char *command_name);
@@ -12,6 +12,8 @@ char *gen_errmsg_head(char *shell, char *nxtarg)
     tmp1 = ft_strjoin(shell, ": ");
     if (!tmp1)
         return (NULL);
+    if(!nxtarg)
+        return (tmp1);
     res = ft_strjoin(tmp1, nxtarg);
     free(tmp1);
     if (!res)
@@ -24,6 +26,8 @@ char *gen_command_path(char *prefix, char *command_name)
     char *tmp;
     char *res;
 
+    if (!command_name)
+        return (NULL);
     tmp = ft_strjoin(prefix, "/");
     if(!tmp)
         return (NULL);
@@ -43,3 +47,4 @@ char *gen_errmsg_cmd_not_found(char *shell_name, char *cmd_name)
         return (NULL);
     return (res);
 }
+

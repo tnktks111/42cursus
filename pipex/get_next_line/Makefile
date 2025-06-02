@@ -6,15 +6,14 @@
 #    By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/29 10:36:24 by ttanaka           #+#    #+#              #
-#    Updated: 2025/05/30 19:18:14 by ttanaka          ###   ########.fr        #
+#    Updated: 2025/06/02 17:51:22 by ttanaka          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libgnl.a
 
 SRCS = get_next_line.c \
-get_next_line_utils.c\
-get_next_line_for_getenv.c
+get_next_line_utils.c
 
 OBJS_DIR = objs
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
@@ -30,7 +29,7 @@ $(NAME): $(OBJS)
 	ranlib $@
 
 $(OBJS_DIR)/%.o : %.c
-	@mkdir -p $(dir $@)
+	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 clean:

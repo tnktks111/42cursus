@@ -1,31 +1,24 @@
-#include "pipex.h"
+#include "../inc/pipex.h"
 
-char *ft_getenv(const char *varname);
+char *ft_getenv(const char *varname, char *envp[]);
 
-char *ft_getenv(const char *varname)
+char *ft_getenv(const char *varname, char *envp[])
 {
-    int fd;
-    char *s;
+    int i;
     char *res;
     int var_len;
 
     var_len = ft_strlen(varname);
-    fd = open("/proc/self/environ", O_RDONLY);
-    if (fd == -1)
-        return (NULL);
-    s = get_next_line_for_getenv(fd);
-    while (s)
+    i = -1;
+    while (envp[++i])
     {
-        if (ft_strncmp(s, varname, var_len) == 0)
+        if (ft_strncmp(envp[i], varname, var_len) == 0 && envp[i][var_len] == '=')
         {
-            res = ft_strdup(s + (var_len + 1));
+            res = ft_strdup(envp[i] + (var_len + 1));
             if (!res)
                 return (NULL);
-            free(s);
             return (res);
         }
-        free(s);
-        s = get_next_line_for_getenv(fd);
     }
     return (NULL);
 }
@@ -33,15 +26,14 @@ char *ft_getenv(const char *varname)
 //receive an allocated path and return last section(ex. "/bin/bash" -> "bash")
 char *get_last_section(char *path)
 {
-    int i;
+    char *last_section;
     char *res;
 
-    i = ft_strlen(path);
-    while (i > 0 && path[i] != '/')
-        i--;
-    res = ft_strdup(path + i + 1);
-    if (!res)
-        return (NULL);
+    last_section = ft_strrchr(path, '/');
+    if (!last_section)
+        return (path);
+    last_section++;
+    res = ft_strdup(last_section);
     free(path);
     return (res);
 }
