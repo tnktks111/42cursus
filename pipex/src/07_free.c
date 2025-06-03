@@ -6,11 +6,11 @@
 /*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 20:31:15 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/06/03 20:47:50 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/06/03 21:42:42 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../inc/pipex.h"
 
 void	close_except_used_pipe(int **fd, int idx, int size, t_info *info);
 void	free_process_var(t_process *process);
