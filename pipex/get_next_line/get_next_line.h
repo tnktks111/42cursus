@@ -6,7 +6,7 @@
 /*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 22:29:08 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/05/30 18:59:19 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/06/03 20:44:50 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ t_buf_node				*ft_search(int fd, t_buf_node *hashtable);
 int						ft_get_and_put_c(t_buf_node *node, t_string *res);
 char					*get_next_line(int fd);
 
-int	ft_get_and_put_c_for_getenv(t_buf_node *node, t_string *res);
-char	*get_next_line_for_getenv(int fd);
+int						ft_get_and_put_c_for_getenv(t_buf_node *node,
+							t_string *res);
+char					*get_next_line_for_getenv(int fd);
 
 #endif

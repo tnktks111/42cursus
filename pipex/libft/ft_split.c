@@ -6,7 +6,7 @@
 /*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 13:24:15 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/05/31 11:58:25 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/06/03 20:44:39 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,12 @@ char	**ft_split(char const *s, char c)
 	return (words);
 }
 
-void free_splited_data(char **data)
+void	free_splited_data(char **data)
 {
-	size_t i;
+	size_t	i;
 
 	i = -1;
-	while(data[++i])
+	while (data[++i])
 		free(data[i]);
 	free(data);
 }

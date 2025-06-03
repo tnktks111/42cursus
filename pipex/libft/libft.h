@@ -6,17 +6,17 @@
 /*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 14:15:02 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/05/31 11:58:38 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/06/03 20:44:30 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include <limits.h>
+# include <stdint.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <stdint.h>
-# include <limits.h>
 
 // # include <stdio.h>
 // # include <string.h>
@@ -75,6 +75,6 @@ void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
 
-void free_splited_data(char **data);
+void				free_splited_data(char **data);
 
 #endif

@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/06/03 20:48:19 by ttanaka           #+#    #+#              #
+#    Updated: 2025/06/03 20:50:42 by ttanaka          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = pipex
 
 CC = cc
@@ -17,7 +29,8 @@ PIPEX_SRC_BASENAMES = 00_main.c \
                       03_exec_helper.c \
                       04_ft_getenv.c \
                       05_gen_str.c \
-                      06_notify.c
+                      06_notify.c \
+					  07_free.c
 
 PIPEX_SRCS = $(addprefix $(PIPEX_SRC_DIR)/, $(PIPEX_SRC_BASENAMES))
 PIPEX_OBJS = $(addprefix $(PIPEX_OBJ_DIR)/, $(PIPEX_SRC_BASENAMES:.c=.o))
@@ -45,11 +58,13 @@ $(PIPEX_OBJ_DIR)/%.o: $(PIPEX_SRC_DIR)/%.c $(INC_DIR)/pipex.h Makefile
 
 clean:
 	rm -f $(PIPEX_OBJS)
+	rm -rf $(PIPEX_OBJ_DIR)
 	$(MAKE) -s -C $(LIBFT_DIR) clean
 	$(MAKE) -s -C $(LIBGNL_DIR) clean
 
 fclean:
 	rm -f $(PIPEX_OBJS)
+	rm -rf $(PIPEX_OBJ_DIR)
 	rm -f $(NAME)
 	$(MAKE) -s -C $(LIBFT_DIR) fclean
 	$(MAKE) -s -C $(LIBGNL_DIR) fclean
