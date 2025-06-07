@@ -6,7 +6,7 @@
 /*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 20:31:12 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/06/03 20:42:49 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/06/03 23:00:16 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,21 @@
 
 unsigned char	notify_invalid_format(void)
 {
-	ft_putstr_fd("Invalid format", STDERR_FILENO);
+	ft_putendl_fd("Invalid format", STDERR_FILENO);
 	return (EXIT_FAILURE);
 }
 
-unsigned char	notify_cmd_not_found(char **command_elems)
+unsigned char notify_invalid_cmd_path(char **command_elems)
 {
+	char *slash;
 	ft_putstr_fd("bash", STDERR_FILENO);
 	ft_putstr_fd(": ", STDERR_FILENO);
 	ft_putstr_fd(command_elems[0], STDERR_FILENO);
-	ft_putendl_fd(": command not found", STDERR_FILENO);
+	slash = ft_strchr(command_elems[0], '/');
+	if (!slash)
+		ft_putendl_fd(": command not found", STDERR_FILENO);
+	else
+		ft_putendl_fd(": No such file or directory", STDERR_FILENO);
 	free_splited_data(command_elems);
 	return (127);
 }

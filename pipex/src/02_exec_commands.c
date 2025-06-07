@@ -6,7 +6,7 @@
 /*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 20:31:03 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/06/03 20:47:17 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/06/03 23:04:25 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	finish_processes(t_info *info, int process_cnt, bool in_child_process)
 	while (++i < process_cnt && in_child_process == false)
 		waitpid(info->process.pid[i], &(info->process.status[i]), 0);
 	free(info->process.fd);
+	info->exit_status = info->process.status[process_cnt - 1];
 	free(info->process.pid);
 	free(info->process.status);
 	if (process_cnt != info->size)
@@ -122,7 +123,7 @@ int	exec_child_process(int stdin_fd, int stdout_fd, char *cmd, t_info *info)
 		exit(EXIT_FAILURE);
 	}
 	finish_processes(info, info->size, true);
-	exit(notify_cmd_not_found(command_elems));
+	exit(notify_invalid_cmd_path(command_elems));
 }
 
 int	exec_n_commands(char *argv[], t_info *info)

@@ -6,7 +6,7 @@
 /*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 20:43:07 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/06/03 20:45:45 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/06/03 23:03:32 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_info
 	bool		is_valid_infile;
 	bool		is_valid_outfile;
 	char		**command_path_prefixs;
+	unsigned char exit_status;
 	t_process	process;
 }				t_info;
 
@@ -75,7 +76,7 @@ char			*gen_command_path(char *prefix, char *command_name);
 
 // 06_notify.c
 unsigned char	notify_invalid_format(void);
-unsigned char	notify_cmd_not_found(char **command_elems);
+unsigned char	notify_invalid_cmd_path(char **command_elems);
 unsigned char	notify_interfered_by_eof(t_info *info);
 
 // 07_free.c

@@ -6,7 +6,7 @@
 /*   By: ttanaka <ttanaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 20:30:56 by ttanaka           #+#    #+#             */
-/*   Updated: 2025/06/03 20:46:29 by ttanaka          ###   ########.fr       */
+/*   Updated: 2025/06/03 23:04:46 by ttanaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,5 @@ int	main(int argc, char *argv[], char *envp[])
 		return (EXIT_FAILURE);
 	}
 	free_resources(&info);
-	return (EXIT_SUCCESS);
+	return (info.exit_status);
 }
